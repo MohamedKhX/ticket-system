@@ -3,7 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\Gender;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -11,15 +14,9 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    protected $guarded = [
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -42,6 +39,20 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'gender' => Gender::class
         ];
     }
+
+    public function name(): Attribute
+    {
+        return Attribute::get(function () {
+            return $this->first_name . ' ' . $this->last_name;
+        });
+    }
+
+    public function Airline(): BelongsTo
+    {
+        return $this->belongsTo(Airline::class);
+    }
+
 }

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Aircraft;
+use App\Models\Airport;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,11 +15,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call([
+            AirportSeeder::class,
+            AirlineSeeder::class,
+            AircraftSeeder::class,
+            FlightSeeder::class,
+        ]);
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('password'),
+            'airline_id' => 1,
         ]);
     }
 }
