@@ -2,8 +2,11 @@
 
 namespace App\Filament\Admin\Resources;
 
+use App\Filament\Admin\Resources\AirlineResource\RelationManagers\UsersRelationManager;
 use App\Models\Airline;
 use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -19,12 +22,36 @@ class AirlineResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('name')
-                    ->translateLabel()
-                    ->required()
-                    ->unique('airlines', 'name')
-                    ->rules('max:255'),
+                Fieldset::make('')
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->label('name')
+                            ->translateLabel()
+                            ->required()
+                            ->unique('airlines', 'name')
+                            ->rules('max:255'),
+
+                        RichEditor::make('description')
+                            ->label('Brief')
+                            ->required()
+                            ->translateLabel()
+                            ->toolbarButtons([
+                                'attachFiles',
+                                'blockquote',
+                                'bold',
+                                'bulletList',
+                                'codeBlock',
+                                'h2',
+                                'h3',
+                                'italic',
+                                'link',
+                                'orderedList',
+                                'redo',
+                                'strike',
+                                'underline',
+                                'undo',
+                            ])
+                    ])->columns(1),
             ]);
     }
 
@@ -50,7 +77,7 @@ class AirlineResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            UsersRelationManager::class
         ];
     }
 

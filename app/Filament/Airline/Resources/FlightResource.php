@@ -7,13 +7,14 @@ use App\Filament\Airline\Resources\FlightResource\RelationManagers;
 use App\Models\Aircraft;
 use App\Models\Airport;
 use App\Models\Flight;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class FlightResource extends Resource
 {
@@ -94,15 +95,6 @@ class FlightResource extends Resource
                             ->suffix('د.ل')
                             ->columnSpan(2),
 
-                        Forms\Components\TextInput::make('first_class_price')
-                            ->label('First Class Seat Price')
-                            ->translateLabel()
-                            ->required()
-                            ->numeric()
-                            ->prefixIcon('heroicon-m-currency-dollar')
-                            ->suffix('د.ل')
-                            ->columnSpan(2),
-
 
                         Forms\Components\Hidden::make('airline_id')
                             ->default(auth()->user()->airline->id),
@@ -155,20 +147,37 @@ class FlightResource extends Resource
                     ->translateLabel()
                     ->searchable()
                     ->sortable(),
-
-                Tables\Columns\TextColumn::make('first_class_price')
-                    ->label('First Class Seat Price')
-                    ->translateLabel()
-                    ->searchable()
-                    ->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('departure_airport')
+                    ->label('departure_airport')
+                    ->translateLabel()
+                    ->multiple()
+                    ->searchable()
+                    ->preload()
+                    ->relationship('departureAirport', 'name'),
+
+                //Filter for the departure_airport
+                SelectFilter::make('departure_airport')
+                    ->label('departure_airport')
+                    ->translateLabel()
+                    ->multiple()
+                    ->searchable()
+                    ->preload()
+                    ->relationship('departureAirport', 'name'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ]);
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        return $query->where('airline_id', '=', Filament::auth()->getUser()->airline->id);
+    }
+
 
     public static function getRelations(): array
     {

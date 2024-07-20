@@ -12,4 +12,15 @@ return [
         \App\Enums\Gender::Male->value   => 'ذكر',
         \App\Enums\Gender::Female->value => 'أنثى',
     ],
+
+    'age_group' => [
+        \App\Enums\AgeGroup::Adult->value   => 'بالغ',
+        \App\Enums\AgeGroup::Child->value   => 'طفل',
+        \App\Enums\AgeGroup::Infant->value  => 'رضيع',
+    ],
+
+    'seat_type' => [
+        \App\Enums\SeatType::Economy->value   => 'اقتصادي',
+        \App\Enums\SeatType::Business->value  => 'أعمال',
+    ]
 ];

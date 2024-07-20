@@ -8,5 +8,4 @@ enum SeatType: string
 
     case Economy = 'economy';
     case Business = 'business';
-    case FirstClass = 'first_class';
 }

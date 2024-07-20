@@ -22,7 +22,6 @@ return new class extends Migration
 
             $table->decimal('economy_price', 10, 2);
             $table->decimal('business_price', 10, 2);
-            $table->decimal('first_class_price', 10, 2);
 
             $table->unique(['aircraft_id', 'departure_time', 'arrival_time']);
             $table->timestamps();

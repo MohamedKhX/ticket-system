@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('flight_id')->constrained();
             $table->foreignId('user_id')->constrained();
-
             $table->integer('passenger_count');
             $table->decimal('total_price', 10, 2);
+
+            $table->string('email');
+            $table->string('phone');
+
             $table->timestamps();
         });
     }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('last_name', 100);
             $table->string('passport_number', 20);
             $table->enum('seat_type', \App\Enums\SeatType::values());
+            $table->enum('age_group', \App\Enums\AgeGroup::values());
             $table->timestamps();
         });
     }

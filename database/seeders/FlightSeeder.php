@@ -24,7 +24,6 @@ class FlightSeeder extends Seeder
                'arrival_time' => now()->addHours(2),
                'economy_price' => 100.00,
                'business_price' => 200.00,
-               'first_class_price' => 300.00,
             ],
             [
                 'aircraft_id' => 2,
@@ -35,7 +34,6 @@ class FlightSeeder extends Seeder
                 'arrival_time' => now()->addDays(2)->addHours(3),
                 'economy_price' => 130.00,
                 'business_price' => 230.00,
-                'first_class_price' => 330.00,
             ],
             [
                 'aircraft_id' => 3,
@@ -46,7 +44,6 @@ class FlightSeeder extends Seeder
                 'arrival_time' => now()->addDays(3)->addHours(4),
                 'economy_price' => 140.00,
                 'business_price' => 240.00,
-                'first_class_price' => 340.00,
             ],
             [
                 'aircraft_id' => 4,
@@ -57,7 +54,6 @@ class FlightSeeder extends Seeder
                 'arrival_time' => now()->addDays(4)->addHours(3),
                 'economy_price' => 150.00,
                 'business_price' => 250.00,
-                'first_class_price' => 350.00,
             ],
             [
                 'aircraft_id' => 5,
@@ -68,7 +64,6 @@ class FlightSeeder extends Seeder
                 'arrival_time' => now()->addDays(5)->addHours(4),
                 'economy_price' => 160.00,
                 'business_price' => 260.00,
-                'first_class_price' => 360.00,
             ],
         ];
 
