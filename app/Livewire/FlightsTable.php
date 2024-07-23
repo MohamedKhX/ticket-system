@@ -21,6 +21,7 @@ use Filament\Forms\Components\Wizard;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Infolists\Concerns\InteractsWithInfolists;
+use Filament\Notifications\Notification;
 use Filament\Support\Colors\Color;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
@@ -49,6 +50,10 @@ class FlightsTable extends Component implements HasForms, HasTable
         return $table
             ->query(Flight::query())
             ->columns([
+                TextColumn::make('airline.name')
+                    ->label('Aircraft')
+                    ->translateLabel(),
+
                 TextColumn::make('aircraft.name')
                     ->label('Aircraft')
                     ->translateLabel(),
@@ -78,8 +83,8 @@ class FlightsTable extends Component implements HasForms, HasTable
                     ->badge()
                     ->color('success'),
 
-                TextColumn::make('business_price')
-                    ->label('Business Seat Price')
+                TextColumn::make('first_class_price')
+                    ->label('First Class Seat Price')
                     ->translateLabel()
                     ->suffix(' د.ل')
                     ->badge()
@@ -156,18 +161,18 @@ class FlightsTable extends Component implements HasForms, HasTable
                                                 ->label(__('Economy Seat Price'))
                                                 ->content(fn(Flight $record) => $record->economy_price . ' د.ل'),
 
-                                            Placeholder::make('Business Seat Price')
-                                                ->label(__('Business Seat Price'))
-                                                ->content(fn(Flight $record) => $record->business_price . ' د.ل'),
+                                            Placeholder::make('First Class Seat Price')
+                                                ->label(__('First Class Seat Price'))
+                                                ->content(fn(Flight $record) => $record->first_class_price . ' د.ل'),
 
 
                                             Placeholder::make('Number of economy seats remaining')
                                                 ->label(__('Number of economy seats remaining'))
                                                 ->content(fn(Flight $flight) => $flight->economySeatsRemaining()),
 
-                                            Placeholder::make('Number of business seats remaining')
-                                                ->label(__('Number of business seats remaining'))
-                                                ->content(fn(Flight $flight) => $flight->businessSeatsRemaining()),
+                                            Placeholder::make('Number of first class seats remaining')
+                                                ->label(__('Number of first class seats remaining'))
+                                                ->content(fn(Flight $flight) => $flight->firstClassSeatsRemaining()),
                                         ]),
 
                                     Repeater::make('passengers')
@@ -194,7 +199,7 @@ class FlightsTable extends Component implements HasForms, HasTable
                                             TextInput::make('passport_number')
                                                 ->label(__('passport_number'))
                                                 ->columnSpan(2)
-                                                ->regex('/^[A-Za-z]+$/u')
+                                                ->regex('/^[A-Za-z0-9]+$/u')
                                                 ->required()
                                                 ->minLength(9),
 
@@ -276,8 +281,12 @@ class FlightsTable extends Component implements HasForms, HasTable
                             ]);
                         }
 
-                        \Illuminate\Support\Facades\Mail::to('fake@example.com')->send(new \App\Mail\ticket());
-
+                        \Illuminate\Support\Facades\Mail::to($data['email'])->send(new \App\Mail\ticket());
+                        Notification::make()
+                            ->title('عليك تأكيد حجزك')
+                            ->body('لقد أرسنا لك بريد إليك لتكملة إرجاءات الحجز')
+                            ->success()
+                            ->send();
                     })
             ]);
     }
@@ -290,8 +299,8 @@ class FlightsTable extends Component implements HasForms, HasTable
             if($passenger['seat_type'] == SeatType::Economy->value) {
                 $total_price += $record->economy_price;
             }
-            if($passenger['seat_type'] == SeatType::Business->value) {
-                $total_price += $record->business_price;
+            if($passenger['seat_type'] == SeatType::First_class->value) {
+                $total_price += $record->first_class_price;
             }
         }
 

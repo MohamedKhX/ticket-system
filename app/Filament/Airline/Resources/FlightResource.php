@@ -86,8 +86,8 @@ class FlightResource extends Resource
                             ->suffix('د.ل')
                             ->columnSpan(2),
 
-                        Forms\Components\TextInput::make('business_price')
-                            ->label('Business Seat Price')
+                        Forms\Components\TextInput::make('first_class_price')
+                            ->label('First Class Seat Price')
                             ->translateLabel()
                             ->required()
                             ->numeric()
@@ -142,8 +142,8 @@ class FlightResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('business_price')
-                    ->label('Business Seat Price')
+                Tables\Columns\TextColumn::make('first_class_price')
+                    ->label('First Class Seat Price')
                     ->translateLabel()
                     ->searchable()
                     ->sortable(),

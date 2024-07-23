@@ -20,6 +20,11 @@ class Flight extends Model implements HasMedia
         return $this->belongsTo(Aircraft::class);
     }
 
+    public function airline(): BelongsTo
+    {
+        return $this->belongsTo(Airline::class);
+    }
+
     public function departureAirport(): BelongsTo
     {
         return $this->belongsTo(Airport::class, 'departure_airport_id');
@@ -41,14 +46,14 @@ class Flight extends Model implements HasMedia
         return $economySeats - $reservedSeats;
     }
 
-    public function businessSeatsRemaining(): int
+    public function firstClassSeatsRemaining(): int
     {
-        $businessSeats = $this->aircraft->business_seats;
+        $firstClassSeats = $this->aircraft->first_class_seats;
         $reservedSeats = Passenger::join('bookings', 'passengers.booking_id', '=', 'bookings.id')
             ->where('bookings.flight_id', $this->id)
-            ->where('passengers.seat_type', SeatType::Business->value)
+            ->where('passengers.seat_type', SeatType::First_class->value)
             ->count();
 
-        return $businessSeats - $reservedSeats;
+        return $firstClassSeats - $reservedSeats;
     }
 }

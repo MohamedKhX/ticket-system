@@ -47,23 +47,13 @@ class AircraftResource extends Resource
                             ->suffix('مقعد')
                             ->columnSpan(2),
 
-                        Forms\Components\TextInput::make('business_seats')
-                            ->label('Business Seats')
-                            ->translateLabel()
-                            ->required()
-                            ->numeric()
-                            ->placeholder(__('Enter the seats number'))
-                            ->prefixIcon('heroicon-m-chevron-double-up')
-                            ->suffix('مقعد')
-                            ->columnSpan(2),
-
                         Forms\Components\TextInput::make('first_class_seats')
                             ->label('First Class Seats')
                             ->translateLabel()
                             ->required()
                             ->numeric()
                             ->placeholder(__('Enter the seats number'))
-                            ->prefixIcon('heroicon-m-bookmark')
+                            ->prefixIcon('heroicon-m-chevron-double-up')
                             ->suffix('مقعد')
                             ->columnSpan(2),
 
@@ -85,11 +75,6 @@ class AircraftResource extends Resource
 
                 Tables\Columns\TextColumn::make('economy_seats')
                     ->label('Economy Seats')
-                    ->translateLabel()
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('business_seats')
-                    ->label('Business Seats')
                     ->translateLabel()
                     ->sortable(),
 

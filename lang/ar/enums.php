@@ -21,6 +21,6 @@ return [
 
     'seat_type' => [
         \App\Enums\SeatType::Economy->value   => 'اقتصادي',
-        \App\Enums\SeatType::Business->value  => 'أعمال',
+        \App\Enums\SeatType::First_class->value  => 'درجة أولى',
     ]
 ];

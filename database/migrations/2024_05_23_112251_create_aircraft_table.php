@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->integer('economy_seats');
-            $table->integer('business_seats');
             $table->integer('first_class_seats');
             $table->foreignId('airline_id')->constrained();
 

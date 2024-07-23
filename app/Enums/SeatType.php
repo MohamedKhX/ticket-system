@@ -7,5 +7,5 @@ enum SeatType: string
     use Enum;
 
     case Economy = 'economy';
-    case Business = 'business';
+    case First_class = 'first class';
 }

@@ -17,8 +17,8 @@ class ticket extends Mailable
      * Create a new message instance.
      */
     public function __construct()
+
     {
-        //
     }
 
     /**
@@ -27,6 +27,7 @@ class ticket extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+
             subject: 'Ticket',
         );
     }
@@ -37,7 +38,7 @@ class ticket extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'ticket',
+            markdown: 'ticket'
         );
     }
 
