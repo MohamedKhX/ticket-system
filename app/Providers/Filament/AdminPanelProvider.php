@@ -2,6 +2,12 @@
 
 namespace App\Providers\Filament;
 
+use App\Enums\BookingStatus;
+use App\Filament\Admin\Reports;
+use App\Filament\Widgets\BookingsChart;
+use App\Filament\Widgets\FlightsChart;
+use App\Filament\Widgets\FlightsTable;
+use App\Filament\Widgets\StatsOverviewWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -35,12 +41,14 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\\Filament\\Admin\\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\\Filament\\Admin\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                Reports::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\\Filament\\Admin\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                StatsOverviewWidget::class,
+                FlightsChart::class,
+                BookingsChart::class,
+                FlightsTable::class
             ])
             ->middleware([
                 EncryptCookies::class,

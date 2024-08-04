@@ -15,8 +15,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('flight_id')->constrained();
             $table->foreignId('user_id')->constrained();
+
+            //Todo: calc it from the model not from the database
             $table->integer('passenger_count');
+
             $table->decimal('total_price', 10, 2);
+
+            $table->enum('status', \App\Enums\BookingStatus::values());
 
             $table->string('email');
             $table->string('phone');
