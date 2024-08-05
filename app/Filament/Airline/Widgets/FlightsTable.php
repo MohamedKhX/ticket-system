@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Filament\Admin\Widgets;
-
+namespace App\Filament\Airline\Widgets;
 
 use App\Enums\FlightType;
 use App\Filament\Resources\Shop\OrderResource;
 use App\Models\Aircraft;
 use App\Models\Flight;
 use App\Models\Shop\Order;
+use Filament\Facades\Filament;
 use Filament\Tables;
 use Filament\Tables\Filters\QueryBuilder;
 use Filament\Tables\Filters\QueryBuilder\Constraints\BooleanConstraint;
@@ -31,7 +31,7 @@ class FlightsTable extends BaseWidget
     {
         return $table
             ->heading(__('Flights'))
-            ->query(Flight::query())
+            ->query(Flight::where('airline_id', '=', Filament::auth()->user()->airline_id))
             ->defaultPaginationPageOption(5)
             ->defaultSort('created_at', 'desc')
             ->columns([

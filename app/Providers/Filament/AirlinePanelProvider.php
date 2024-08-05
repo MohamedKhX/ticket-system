@@ -39,8 +39,7 @@ class AirlinePanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Airline/Widgets'), for: 'App\\Filament\\Airline\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+
             ])
             ->middleware([
                 EncryptCookies::class,

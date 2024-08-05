@@ -51,7 +51,7 @@ class FlightsTable extends Component implements HasForms, HasTable
             ->query(Flight::query())
             ->columns([
                 TextColumn::make('airline.name')
-                    ->label('Aircraft')
+                    ->label('Airline')
                     ->translateLabel(),
 
                 TextColumn::make('aircraft.name')
@@ -107,9 +107,8 @@ class FlightsTable extends Component implements HasForms, HasTable
                     ->preload()
                     ->relationship('arrivalAirport', 'name'),
 
-                Filter::make('age')
+                Filter::make('date')
                     ->form([
-
                         DatePicker::make('departure_time')
                             ->label('departure_time')
                             ->translateLabel()

@@ -4,10 +4,10 @@ namespace App\Providers\Filament;
 
 use App\Enums\BookingStatus;
 use App\Filament\Admin\Reports;
-use App\Filament\Widgets\BookingsChart;
-use App\Filament\Widgets\FlightsChart;
-use App\Filament\Widgets\FlightsTable;
-use App\Filament\Widgets\StatsOverviewWidget;
+use App\Filament\Admin\Widgets\BookingsChart;
+use App\Filament\Admin\Widgets\FlightsChart;
+use App\Filament\Admin\Widgets\FlightsTable;
+use App\Filament\Admin\Widgets\StatsOverviewWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;

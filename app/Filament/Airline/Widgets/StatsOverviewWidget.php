@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Filament\Admin\Widgets;
+namespace App\Filament\Airline\Widgets;
 
+use App\Models\Airline;
 use App\Models\Booking;
 use App\Models\Flight;
 use Carbon\Carbon;
+use Filament\Facades\Filament;
 use Filament\Widgets\Concerns\InteractsWithPageFilters;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -18,9 +20,11 @@ class StatsOverviewWidget extends BaseWidget
 
     protected function getStats(): array
     {
-        $totalRevenue = Booking::sum('total_price');
-        $totalFlight = Flight::count();
-        $totalBookings = Booking::count();
+        $airline = Airline::find(Filament::auth()->user()->airline_id);
+
+        $totalRevenue =  $airline->bookings()->sum('total_price');
+        $totalFlight   = Flight::where('airline_id', '=', Filament::auth()->user()->airline_id)->count();
+        $totalBookings = $airline->bookings()->count();
 
         return [
             Stat::make('الإيرادات', '$' . $totalRevenue)
