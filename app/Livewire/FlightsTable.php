@@ -24,6 +24,7 @@ use Filament\Infolists\Concerns\InteractsWithInfolists;
 use Filament\Notifications\Notification;
 use Filament\Support\Colors\Color;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -34,6 +35,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Filament\Widgets\Concerns\InteractsWithPageFilters;
 use Illuminate\Support\HtmlString;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Mockery\Generator\StringManipulation\Pass\Pass;
 
@@ -45,17 +47,30 @@ class FlightsTable extends Component implements HasForms, HasTable
     use InteractsWithPageFilters;
     use InteractsWithActions, InteractsWithInfolists;
 
+    #[Url]
+    public ?array $tableFilters = null;
+
     public function table(Table $table): Table
     {
         return $table
             ->query(Flight::query())
             ->columns([
+                ImageColumn::make('airline.logo')
+                    ->circular()
+                    ->label(''),
+
                 TextColumn::make('airline.name')
                     ->label('Airline')
                     ->translateLabel(),
 
                 TextColumn::make('aircraft.name')
                     ->label('Aircraft')
+                    ->translateLabel(),
+
+                TextColumn::make('flight_type')
+                    ->label('Flight Type')
+                    ->formatStateUsing(fn($state) => $state->translate())
+                    ->badge()
                     ->translateLabel(),
 
                 TextColumn::make('departureAirport.name')
@@ -91,6 +106,14 @@ class FlightsTable extends Component implements HasForms, HasTable
                     ->color('success'),
             ])
             ->filters([
+                SelectFilter::make('airline')
+                    ->label('Airline')
+                    ->translateLabel()
+                    ->multiple()
+                    ->searchable()
+                    ->preload()
+                    ->relationship('airline', 'name'),
+
                 SelectFilter::make('departure_airport')
                     ->label('departure_airport')
                     ->translateLabel()
@@ -129,7 +152,7 @@ class FlightsTable extends Component implements HasForms, HasTable
                     ->columns(2)
                     ->columnSpan(2)
             ], layout: FiltersLayout::AboveContent)
-            ->filtersFormColumns(4)
+            ->filtersFormColumns(3)
             ->actions([
                 Action::make('حجز')
                     ->icon('heroicon-s-ticket')
@@ -140,6 +163,15 @@ class FlightsTable extends Component implements HasForms, HasTable
                                     Fieldset::make('Flight Info')
                                         ->label(__('Flight Info'))
                                         ->schema([
+
+                                            Placeholder::make('Airline')
+                                                ->label(__('Airline'))
+                                                ->content(fn(Flight $record) => $record->airline->name),
+
+                                            Placeholder::make('Flight Type')
+                                                ->label(__('Flight Type'))
+                                                ->content(fn(Flight $record) => $record->flight_type->translate()),
+
                                             Placeholder::make('Departure Airport')
                                                 ->label(__('Departure Airport'))
                                                 ->content(fn(Flight $record) => $record->departureAirport->name),
@@ -172,6 +204,7 @@ class FlightsTable extends Component implements HasForms, HasTable
                                             Placeholder::make('Number of first class seats remaining')
                                                 ->label(__('Number of first class seats remaining'))
                                                 ->content(fn(Flight $flight) => $flight->firstClassSeatsRemaining()),
+
                                         ]),
 
                                     Repeater::make('passengers')
@@ -201,12 +234,6 @@ class FlightsTable extends Component implements HasForms, HasTable
                                                 ->regex('/^[A-Za-z0-9]+$/u')
                                                 ->required()
                                                 ->minLength(9),
-
-                                            SpatieMediaLibraryFileUpload::make('passport_image')
-                                                ->label(__('passport_image'))
-                                                ->collection('passport_image')
-                                                ->columnSpan(2)
-                                                ->required()
                                         ])
                                         ->minItems(1)
                                         ->columns(2)
@@ -222,6 +249,20 @@ class FlightsTable extends Component implements HasForms, HasTable
                                             Placeholder::make('Total Price')
                                                 ->label(__('Total price'))
                                                 ->content(fn($get, Flight $record) => $this->getTotalPrice($get('passengers'), $record) . ' د.ل'),
+                                        ]),
+                                ]),
+                            Wizard\Step::make('الأمتعة')
+                                ->schema([
+                                    Fieldset::make('Flight Info')
+                                        ->label(__('Flight Info'))
+                                        ->schema([
+                                            Placeholder::make('Allowed Baggage Weight Limit')
+                                                ->label(__('Allowed Baggage Weight Limit'))
+                                                ->content(fn(Flight $record) => $record->checked_baggage_weight_limit . ' كجم'),
+
+                                            Placeholder::make('Excess Baggage Fee Per 1 kgm')
+                                                ->label(__('Excess Baggage Fee Per 1 kgm'))
+                                                ->content(fn(Flight $record) => $record->excess_baggage_fee . ' د.ل'),
                                         ]),
                                 ]),
                             Wizard\Step::make('باقية المعلومات')
@@ -254,7 +295,7 @@ class FlightsTable extends Component implements HasForms, HasTable
 
 
                                 ]),
-                        ])->submitAction(new HtmlString('<button type="submit">تأكيد</button>'))
+                        ])->submitAction(new HtmlString('<button type="submit" style="background-color: #0a58ca; color: white; padding: 10px 20px; border-radius: 10px">تأكيد</button>'))
                     ])
                     ->color('danger')
                     ->modalSubmitAction(false)
@@ -281,11 +322,10 @@ class FlightsTable extends Component implements HasForms, HasTable
                         }
 
                         \Illuminate\Support\Facades\Mail::to($data['email'])->send(new \App\Mail\ticket());
-                        Notification::make()
-                            ->title('عليك تأكيد حجزك')
-                            ->body('لقد أرسنا لك بريد إليك لتكملة إرجاءات الحجز')
-                            ->success()
-                            ->send();
+
+                        return redirect()->route('checkout', [
+                            'booking' => $booking
+                        ]);
                     })
             ]);
     }
@@ -305,7 +345,6 @@ class FlightsTable extends Component implements HasForms, HasTable
 
         return $total_price;
     }
-
 
     public function render()
     {

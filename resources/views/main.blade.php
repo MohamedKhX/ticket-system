@@ -1,683 +1,602 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="ThemesLay">
-    <title>حجز رحلات</title>
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="80x80" href="assets/images/favicon.png">
-    <!-- Main CSS -->
-    <link href="{{ asset('/css/main.css') }}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourly - لحجز تذاكر الطيران</title>
+
+    <!--
+      - favicon
+    -->
+    <link rel="shortcut icon" href="{{ asset('img/favicon.svg') }}" type="image/svg+xml">
+
+    <!--
+      - custom css link
+    -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    <!--
+      - google font link
+    -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;800&display=swap" rel="stylesheet">
+
 </head>
 
-<body>
-<!-- page content area -->
-<div class="pagewrap">
-    <div class="head-wrapper">
-        <!-- search engine section-->
-        <div class="search-engine">
-            <div class="container">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-lg-12 mb-5 text-center position-relative">
-                        <h1 class="display-3 fw-bold mb-4 theme-text-white theme-text-shadow">
-                            رحلة تذاكر طيران
-                        </h1>
-                        <p class="mb-0 theme-text-white">اكتشف الأماكن المذهلة بعروض حصرية</p>
+<body id="top">
 
+<!--
+  - #HEADER
+-->
 
-                    </div>
+<header class="header" data-header>
+
+    <div class="overlay" data-overlay></div>
+
+    <div class="header-top">
+        <div class="container">
+
+            <a href="tel:+01123456790" class="helpline-box">
+
+                <div class="icon-box">
+                    <ion-icon name="call-outline"></ion-icon>
                 </div>
-                <!-- search engine tabs -->
-                <div class="row mt-0 mt-lg-5">
-                    <div class="col-12 col-lg-10 offset-lg-1 mb-5 text-center position-relative">
-                        <!-- product main tab list -->
-                        <ul class="nav nav-tabs d-flex justify-content-center border-0 cust-tab" id="myTab"
-                            role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="flight-tab" data-bs-toggle="tab"
-                                        data-bs-target="#flight-tab-pane" type="button" role="tab"
-                                        aria-controls="flight-tab-pane" aria-selected="true">الرحلات</button>
-                            </li>
-                        </ul>
-                        <!-- product main tab content -->
-                        <div class="tab-content mt-3" id="myTabContent">
-                            <!-- flight search tab -->
-                            <div class="tab-pane fade show active" id="flight-tab-pane" role="tabpanel"
-                                 aria-labelledby="flight-tab" tabindex="0">
-                                <!-- flight multiple search tab -->
-                                <ul class="nav nav-pills cust-pills" id="pills-tab" role="tablist">
-                                   {{-- <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="pills-oneway-tab" data-bs-toggle="pill"
-                                                data-bs-target="#pills-oneway" type="button" role="tab"
-                                                aria-controls="pills-oneway" aria-selected="true">
-                                                <span
-                                                    class="d-inline-block p-2 rounded-circle bg-white align-middle me-2"></span>
-                                            One Way</button>
-                                    </li>--}}
-                                </ul>
-                                <div class="tab-content" id="pills-tabContent">
-                                    <div class="tab-pane fade show active" id="pills-oneway" role="tabpanel"
-                                         aria-labelledby="pills-oneway-tab" tabindex="0">
-                                        <!-- one way search -->
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="search-pan flex-row-reverse row mx-0 theme-border-radius">
-                                                    <div
-                                                        class="col-12 col-lg-4 col-xl-2 ps-0 mb-2 mb-xl-0 pe-0 pe-lg-2flex-row-reverse">
-                                                        <div class="form-group px-2">
-                                                            <label for="exampleDataList" class="form-label">تقلع من</label>
-                                                            <select class="form-select m2" aria-label="Default select example">
-                                                                <option value="1">طرابلس</option>
-                                                                <option value="2">بنغازي</option>
-                                                                <option value="3">غدامس</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="col-12 col-lg-4 col-xl-2 ps-0 mb-2 mb-xl-0 pe-0 pe-lg-2">
-                                                        <div class="form-group px-2">
-                                                            <label for="exampleDataList2" class="form-label">الوصول إلى</label>
-                                                            <select class="form-select m2" aria-label="Default select example">
-                                                                <option value="1">طرابلس</option>
-                                                                <option value="2">بنغازي</option>
-                                                                <option value="3">غدامس</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="col-12 col-lg-4 col-xl-3 ps-0 mb-2 mb-xl-0 pe-0 pe-lg-0 pe-xl-2">
-                                                        <div class="form-group">
-                                                            <label class="form-label">تاريخ المغادرة</label>
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="Wed 2 Mar">
-                                                        </div>
-                                                    </div>
 
-                                                    <div
-                                                        class="col-12 col-lg-6 col-xl-3 ps-0 mb-2 mb-lg-0 mb-xl-0 pe-0 pe-lg-2">
-                                                        <div class="form-group border-0">
-                                                            <label class="form-label">Traveller's
-                                                            </label>
-                                                            <div class="dropdown" id="myDD1">
-                                                                <button class="dropdown-toggle form-control"
-                                                                        type="button" id="travellerInfoOneway11"
-                                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        <span class="text-truncate">2 adults - 1
-                                                                            childeren - 1 Infants
-                                                                        </span>
-                                                                </button>
-                                                                <div class="dropdown-menu"
-                                                                     aria-labelledby="travellerInfoOneway11">
-                                                                    <ul class="drop-rest">
-                                                                        <li>
-                                                                            <div class="d-flex small">Adults
-                                                                            </div>
-                                                                            <div
-                                                                                class="ms-auto input-group plus-minus-input">
-                                                                                <div class="input-group-button">
-                                                                                    <button type="button"
-                                                                                            class="circle"
-                                                                                            data-quantity="minus"
-                                                                                            data-field="onewayAdult">
-                                                                                        <i class="bi bi-dash"></i>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <input class="input-group-field"
-                                                                                       type="number" name="onewayAdult"
-                                                                                       value="0">
-                                                                                <div class="input-group-button">
-                                                                                    <button type="button"
-                                                                                            class="circle"
-                                                                                            data-quantity="plus"
-                                                                                            data-field="onewayAdult">
-                                                                                        <i class="bi bi-plus"></i>
-                                                                                    </button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="d-flex small">Child
-                                                                            </div>
-                                                                            <div
-                                                                                class="ms-auto input-group plus-minus-input">
-                                                                                <div class="input-group-button">
-                                                                                    <button type="button"
-                                                                                            class="circle"
-                                                                                            data-quantity="minus"
-                                                                                            data-field="onewayChild">
-                                                                                        <i class="bi bi-dash"></i>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <input class="input-group-field"
-                                                                                       type="number" name="onewayChild"
-                                                                                       value="0">
-                                                                                <div class="input-group-button">
-                                                                                    <button type="button"
-                                                                                            class="circle"
-                                                                                            data-quantity="plus"
-                                                                                            data-field="onewayChild">
-                                                                                        <i class="bi bi-plus"></i>
-                                                                                    </button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="d-flex small">Infants
-                                                                            </div>
-                                                                            <div
-                                                                                class="ms-auto input-group plus-minus-input">
-                                                                                <div class="input-group-button">
-                                                                                    <button type="button"
-                                                                                            class="circle"
-                                                                                            data-quantity="minus"
-                                                                                            data-field="onewayInfant">
-                                                                                        <i class="bi bi-dash"></i>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <input class="input-group-field"
-                                                                                       type="number"
-                                                                                       name="onewayInfant" value="0">
-                                                                                <div class="input-group-button">
-                                                                                    <button type="button"
-                                                                                            class="circle"
-                                                                                            data-quantity="plus"
-                                                                                            data-field="onewayInfant">
-                                                                                        <i class="bi bi-plus"></i>
-                                                                                    </button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-lg-6 col-xl-2 px-0">
-                                                        <button type="submit" class="btn btn-search"
-                                                                onclick="window.location.href='#';">
-                                                                <span class="fw-bold"><i
-                                                                        class="bi bi-search me-2"></i>
-                                                                    بحث
-                                                                </span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- flight class section -->
-                                            <div class="col-12 mt-2">
-                                                <div class="d-flex flex-sm-row flex-column">
-                                                    <div class="me-2 mb-2 mb-lg-0">
-                                                    </div>
-                                                    <div class="me-2">
-                                                        <div class="switch mode-switch">
-                                                            <input type="checkbox" name="class_mode" id="class_mode"
-                                                                   value="1">
-                                                            <label for="class_mode" data-on="Premium"
-                                                                   data-off="Economy"
-                                                                   class="mode-switch-inner"></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- /oneway search -->
-                                    </div>
-                                </div>
+                <div class="wrapper">
+                    <p class="helpline-title">لمزيد من الاستفسار :</p>
 
-                            </div>
-                            <!-- /flight tab end -->
-                        </div>
-                    </div>
+                    <p class="helpline-number">+091 1234567</p>
                 </div>
+
+            </a>
+
+            <a href="#" class="logo">
+                <img src="{{ asset('img/logo.svg') }}" alt="Tourly logo">
+            </a>
+
+            <div class="header-btn-group">
+                <a class="search-btn" href="{{ route('flights-table') }}">
+                    <ion-icon name="search"></ion-icon>
+                </a>
+                <button class="nav-open-btn" aria-label="Open Menu" data-nav-open-btn>
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+
             </div>
+
         </div>
     </div>
-</div>
 
+    <div class="header-bottom">
+        <div class="container">
 
+            <ul class="social-list">
 
-<!-- popular routes section -->
-<section class="popular-routes">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-6 mb-5 mb-lg-0">
-                <h4 class="fs-2 fw-bold theme-text-secondary mb-0">Popular Routes</h4>
-                <p class="mb-0 theme-text-accent-one">International &amp; Domestic fames ac ante ipsum</p>
-            </div>
-            <div class="col-12 col-lg-6 align-self-center justify-content-end d-flex">
-                <div class="d-flex">
-                    <div class="dropdown-center">
-                        <button class="btn recomended-btn" type="button">More <i
-                                class="bi bi-arrow-up-right ms-2"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <!-- popular routes stip -->
-            <div class="col-12 mb-3">
-                <div class="p-3 theme-border-radius border">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-xl-4 col-lg-6">
-                            <div class="row align-items-center">
-                                <div class="col-sm-auto">
-                                    <img class="size-40" src="assets/images/icons/1.png" alt="image">
-                                </div>
-                                <div class="col">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <div class="fs-6">14:00</div>
-                                            <div class="small theme-text-accent-one">DEL</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="flightLine">
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                            <div class="small theme-text-accent-two">4h 05m- Nonstop</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="fs-6">22:00</div>
-                                            <div class="small theme-text-accent-one">LHR</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 my-5 my-lg-0">
-                            <div class="row align-items-center">
-                                <div class="col-sm-auto">
-                                    <img class="size-40" src="assets/images/icons/2.png" alt="image">
-                                </div>
-                                <div class="col">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <div class="fs-6">15:00</div>
-                                            <div class="small theme-text-accent-one">ABD</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="flightLine">
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                            <div class="small theme-text-accent-two">2h 00m- Nonstop</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="fs-6">17:00</div>
-                                            <div class="small theme-text-accent-one">AEH</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <div class="d-flex justify-content-between">
-                                <div class="me-4">
-                                    <div class="fs-6">US$934</div>
-                                    <div class="small theme-text-accent-one">16 deals</div>
-                                </div>
-                                <a href="#" class="theme-btn-outline p-2">
-                                    View Deal <i class="bi bi-arrow-up-right ms-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- repetable -->
-            <div class="col-12 mb-3">
-                <div class="p-3 theme-border-radius border">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-xl-4 col-lg-6">
-                            <div class="row align-items-center">
-                                <div class="col-sm-auto">
-                                    <img class="size-40" src="assets/images/icons/5.png" alt="image">
-                                </div>
-                                <div class="col">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <div class="fs-6">12:00</div>
-                                            <div class="small theme-text-accent-one">AAR</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="flightLine">
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                            <div class="small theme-text-accent-two">2h 05m- Nonstop</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="fs-6">14:50</div>
-                                            <div class="small theme-text-accent-one">LHR</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 my-5 my-lg-0">
-                            <div class="row align-items-center">
-                                <div class="col-sm-auto">
-                                    <img class="size-40" src="assets/images/icons/4.png" alt="image">
-                                </div>
-                                <div class="col">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <div class="fs-6">14:00</div>
-                                            <div class="small theme-text-accent-one">LHR</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="flightLine">
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                            <div class="small theme-text-accent-two">3h 00m- Nonstop</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="fs-6">17:00</div>
-                                            <div class="small theme-text-accent-one">AAR</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <div class="d-flex justify-content-between">
-                                <div class="me-4">
-                                    <div class="fs-6">US$734</div>
-                                    <div class="small theme-text-accent-one">12 deals</div>
-                                </div>
-                                <a href="#" class="theme-btn-outline p-2">
-                                    View Deal <i class="bi bi-arrow-up-right ms-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- repetable -->
-            <div class="col-12 mb-3">
-                <div class="p-3 theme-border-radius border">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-xl-4 col-lg-6">
-                            <div class="row align-items-center">
-                                <div class="col-sm-auto">
-                                    <img class="size-40" src="assets/images/icons/1.png" alt="image">
-                                </div>
-                                <div class="col">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <div class="fs-6">20:00</div>
-                                            <div class="small theme-text-accent-one">DXB</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="flightLine">
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                            <div class="small theme-text-accent-two">2h 15m- Nonstop</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="fs-6">22:15</div>
-                                            <div class="small theme-text-accent-one">LHR</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 my-5 my-lg-0">
-                            <div class="row align-items-center">
-                                <div class="col-sm-auto">
-                                    <img class="size-40" src="assets/images/icons/3.png" alt="image">
-                                </div>
-                                <div class="col">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <div class="fs-6">14:00</div>
-                                            <div class="small theme-text-accent-one">LHR</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="flightLine">
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                            <div class="small theme-text-accent-two">2h 20m- Nonstop</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="fs-6">18:50</div>
-                                            <div class="small theme-text-accent-one">DXB</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <div class="d-flex justify-content-between">
-                                <div class="me-4">
-                                    <div class="fs-6">US$534</div>
-                                    <div class="small theme-text-accent-one">20 deals</div>
-                                </div>
-                                <a href="#" class="theme-btn-outline p-2">
-                                    View Deal <i class="bi bi-arrow-up-right ms-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- repetable -->
-            <div class="col-12 mb-3">
-                <div class="p-3 theme-border-radius border">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-xl-4 col-lg-6">
-                            <div class="row align-items-center">
-                                <div class="col-sm-auto">
-                                    <img class="size-40" src="assets/images/icons/3.png" alt="image">
-                                </div>
-                                <div class="col">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <div class="fs-6">12:00</div>
-                                            <div class="small theme-text-accent-one">MUB</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="flightLine">
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                            <div class="small theme-text-accent-two">10h 05m- Nonstop</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="fs-6">22:05</div>
-                                            <div class="small theme-text-accent-one">LAS</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 my-5 my-lg-0">
-                            <div class="row align-items-center">
-                                <div class="col-sm-auto">
-                                    <img class="size-40" src="assets/images/icons/4.png" alt="image">
-                                </div>
-                                <div class="col">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <div class="fs-6">14:00</div>
-                                            <div class="small theme-text-accent-one">LAS</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="flightLine">
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                            <div class="small theme-text-accent-two">10h 00m- Nonstop</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="fs-6">24:00</div>
-                                            <div class="small theme-text-accent-one">MUM</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <div class="d-flex justify-content-between">
-                                <div class="me-4">
-                                    <div class="fs-6">US$998</div>
-                                    <div class="small theme-text-accent-one">20 deals</div>
-                                </div>
-                                <a href="#" class="theme-btn-outline p-2">
-                                    View Deal <i class="bi bi-arrow-up-right ms-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- repetable -->
-        </div>
-    </div>
-</section>
+                <li>
+                    <a href="#" class="social-link">
+                        <ion-icon name="logo-facebook"></ion-icon>
+                    </a>
+                </li>
 
+                <li>
+                    <a href="#" class="social-link">
+                        <ion-icon name="logo-twitter"></ion-icon>
+                    </a>
+                </li>
 
-<!-- subscription section -->
-<section class="py-5 theme-bg-primary">
-    <div class="container">
-        <div class="row justify-between items-center">
-            <div class="col-12 col-lg-6">
-                <div class="d-flex  align-items-center">
-                    <img src="assets/images/icons/subscribe-icon.png" alt="subscribe" class="img-fluid">
-                    <div class="ms-3">
-                        <h4 class="text-26 text-white fw-600">Your Travel Journey Starts Here</h4>
-                        <p class="text-white">Sign up and we'll send the best deals to you</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-5 offset-lg-1 align-self-center">
-                <div class="input-group subs-form">
-                    <input type="text" class="form-control border-0" placeholder="Your Email"
-                           aria-label="Your Email" aria-describedby="button-addon2">
-                    <button class="btn btn-search" type="button" id="button-addon2">Subscribe</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- footer section-->
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-sm-6 col-lg-3 mb-5 mb-lg-0">
-                <h5 class="mb-5 fs-6">Contact Us</h5>
-                <div class="flex-grow-1">
-                    Customer Care<br>
-                    <span class="fs-5 theme-text-primary">+(1) 123 456 7890</span>
-                </div>
-                <div class="flex-grow-1 mt-3">
-                    Need live support?<br>
-                    <a href="#" class="fs-5 theme-text-primary">hi@example.com</a>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-2 mb-5 mb-lg-0">
-                <div class="d-flex">
-                    <h5 class="mb-5 fs-6">Company</h5>
-                </div>
-                <div class="d-flex">
-                    <ul class="fl-menu">
-                        <li class="nav-item"><a href="javascript:void(0)">About Us</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Careers</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Blog</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Press</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Offers</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Deals</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-2 mb-5 mb-lg-0">
-                <h5 class="mb-5 fs-6">Support</h5>
-                <div class="mt-5">
-                    <ul class="fl-menu">
-                        <li class="nav-item"><a href="javascript:void(0)">Contact</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Legal Notice</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Privacy Policy</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Terms and Conditions</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Sitemap</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-3 mb-5 mb-lg-0">
-                <div class="d-flex justify-content-lg-center">
-                    <h5 class="mb-5 fs-6">Other Services</h5>
-                </div>
-                <div class="d-flex justify-content-lg-center">
-                    <ul class="fl-menu">
-                        <li class="nav-item"><a href="javascript:void(0)">Bus</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Activity Finder</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Tour List</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Flight Search</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Cruise Ticket</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Holidays</a></li>
-                        <li class="nav-item"><a href="javascript:void(0)">Travel Agents</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-2 mb-5 mb-lg-0">
+                <li>
+                    <a href="#" class="social-link">
+                        <ion-icon name="logo-youtube"></ion-icon>
+                    </a>
+                </li>
 
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-lg-3 mt-lg-5">
-                <p class="pt-2 mb-0 small theme-text-accent-one">&copy; 2024 RoundTours All rights reserved.
-                </p>
-            </div>
-            <div class="col-12 col-lg-6 mt-5">
-                <ul class="footer-link d-flex flex-row flex-wrap justify-content-lg-center align-items-center">
-                    <li><a href="javascript:void(0)">Privacy</a></li>
-                    <li><a href="javascript:void(0)">Terms</a></li>
-                    <li><a href="javascript:void(0)">Site Map</a></li>
+            </ul>
+
+            <nav class="navbar" data-navbar>
+
+                <div class="navbar-top">
+
+                    <a href="#" class="logo">
+                        <img src="{{ asset('img/logo-blue.svg') }}" alt="Tourly logo">
+                    </a>
+
+                    <button class="nav-close-btn" aria-label="Close Menu" data-nav-close-btn>
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+
+                </div>
+
+                <ul class="navbar-list">
+
+                    <li>
+                        <a href="#home" class="navbar-link" data-nav-link>الرئيسية</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="navbar-link" data-nav-link>من نحن</a>
+                    </li>
+
+                    <li>
+                        <a href="#destination" class="navbar-link" data-nav-link>الواجهات</a>
+                    </li>
+
+                    <li>
+                        <a href="#package" class="navbar-link" data-nav-link>خطوط الطيران</a>
+                    </li>
+
+                    <li>
+                        <a href="#gallery" class="navbar-link" data-nav-link>المعرض</a>
+                    </li>
+
+                    <li>
+                        <a href="#contact" class="navbar-link" data-nav-link>تواصل معنا</a>
+                    </li>
+
                 </ul>
-            </div>
-            <div class="col-12 col-lg-3 mt-5">
-                <div class="d-flex social justify-content-lg-end">
-                    <a href="javascript:void(0)" class="fs-4 pe-3"><i class="bi bi-facebook"></i></a>
-                    <a href="javascript:void(0)" class="fs-4 pe-3"><i class="bi bi-twitter"></i></a>
-                    <a href="javascript:void(0)" class="fs-4 pe-3"><i class="bi bi-linkedin"></i></a>
-                    <a href="javascript:void(0)" class="fs-4 pe-3"><i class="bi bi-instagram"></i></a>
-                    <a href="javascript:void(0)" class="fs-4"><i class="bi bi-whatsapp"></i></a>
-                </div>
-            </div>
+
+            </nav>
+
+            <a href="{{ route('flights-table') }}" class="btn btn-primary" style="cursor: pointer">احجز الآن</a>
+
+
         </div>
     </div>
-    <!-- Scroll To Top Start-->
-    <a href="javascript:void(0)" class="scrollToTop"><i class="bi bi-chevron-double-up"></i></a>
+
+</header>
+
+
+
+
+
+<main>
+    <article>
+
+        <!--
+          - #HERO
+        -->
+
+        <section class="hero" id="home">
+            <div class="container">
+
+                <h2 class="h1 hero-title">رحلة لإستكشاف ليبيا</h2>
+
+                <p class="hero-text">
+                    اكتشف سحر ليبيا، حيث تلتقي الصحراء بالشواطئ الذهبية، والتاريخ بالحاضر. انطلق في رحلة لا تُنسى عبر مدنها العريقة، من آثار لبدة العظمى إلى أجواء طرابلس الحيوية. دعنا نأخذك في مغامرة استثنائية لاستكشاف كنوز ليبيا المخفية، وتجربة ثقافتها الغنية وطبيعتها الساحرة.
+                </p>
+
+                <div class="btn-group">
+                    <a href="{{ route('flights-table') }}" class="btn btn-primary" style="cursor: pointer">اقرأ المزيد</a>
+
+                    <a href="{{ route('flights-table') }}" class="btn btn-secondary" style="cursor: pointer">احجز الآن</a>
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+
+        <!--
+          - #TOUR SEARCH
+        -->
+
+        <section class="tour-search">
+            <div class="container">
+
+                <form action="" class="tour-search-form">
+
+                    <div class="input-wrapper">
+                        <label for="destination" class="input-label">Search Destination*</label>
+
+                        <input type="text" name="destination" id="destination" required placeholder="Enter Destination"
+                               class="input-field">
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="people" class="input-label">Pax Number*</label>
+
+                        <input type="number" name="people" id="people" required placeholder="No.of People" class="input-field">
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="checkin" class="input-label">Checkin Date**</label>
+
+                        <input type="date" name="checkin" id="checkin" required class="input-field">
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="checkout" class="input-label">Checkout Date*</label>
+
+                        <input type="date" name="checkout" id="checkout" required class="input-field">
+                    </div>
+
+                    <button type="submit" class="btn btn-secondary">Inquire now</button>
+
+                </form>
+
+            </div>
+        </section>
+
+
+
+
+
+        <!--
+          - #POPULAR
+        -->
+
+        <section class="popular" id="destination">
+            <div class="container">
+
+
+                <h2 class="h2 section-title">الوجهات المشهورة</h2>
+
+                <p class="section-text">
+                    استكشف الوجهات المشهورة في ليبيا:  تجمع بين الأصالة والتنوع
+                </p>
+
+                <ul class="popular-list">
+
+                    <li>
+                        <div class="popular-card">
+
+                            <figure class="card-img">
+                                <img src="{{ asset('img/popular-1.jpg') }}" alt="San miguel, italy" loading="lazy">
+                            </figure>
+
+                            <div class="card-content">
+
+                                <div class="card-rating">
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                </div>
+
+                                <p class="card-subtitle">
+                                    <a href="#">ليبيا</a>
+                                </p>
+
+                                <h3 class="h3 card-title">
+                                    <a href="#">طرابلس</a>
+                                </h3>
+
+                                <p class="card-text">
+                                    طرابلس، العاصمة وأكبر مدينة في ليبيا، تجمع بين التاريخ العريق والحداثة.
+                                </p>
+
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popular-card">
+
+                            <figure class="card-img">
+                                <img src="{{ asset('img/popular-3.jpg') }}" alt="Burj khalifa, dubai" loading="lazy">
+                            </figure>
+
+                            <div class="card-content">
+
+                                <div class="card-rating">
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                </div>
+
+                                <p class="card-subtitle">
+                                    <a href="#">ليبيا</a>
+                                </p>
+
+                                <h3 class="h3 card-title">
+                                    <a href="#">بنغازي</a>
+                                </h3>
+
+                                <p class="card-text">
+                                    بنغازي، ثاني أكبر مدينة في ليبيا، تتميز بتاريخها العريق وثقافتها المتنوعة.
+                                </p>
+
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popular-card">
+
+                            <figure class="card-img">
+                                <img src="{{ asset('img/popular-2.jpg') }}" alt="Kyoto temple, japan" loading="lazy">
+                            </figure>
+
+                            <div class="card-content">
+
+                                <div class="card-rating">
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                </div>
+
+                                <p class="card-subtitle">
+                                    <a href="#">ليبيا</a>
+                                </p>
+
+                                <h3 class="h3 card-title">
+                                    <a href="#">صبراته</a>
+                                </h3>
+
+                                <p class="card-text">
+                                    جوهرة الآثار الرومانية في ليبيا: تقع صبراتة على الساحل الغربي لليبيا
+                                </p>
+
+                            </div>
+
+                        </div>
+                    </li>
+
+                </ul>
+
+            {{--    <button class="btn btn-primary">More destintion</button>--}}
+
+            </div>
+        </section>
+
+
+
+
+
+        <!--
+          - #PACKAGE
+        -->
+
+        <section class="package" id="package">
+            <div class="container">
+
+                <p class="section-subtitle">خطوط الطيران</p>
+
+                <h2 class="h2 section-title">استكشف رحلاتنا عبر خطوط الطيران الليبية</h2>
+
+                <p class="section-text">
+                    استكشف رحلاتنا عبر خطوط الطيران الليبية: انطلق في مغامرة لا تُنسى مع خطوط الطيران الليبية،
+                </p>
+
+                <ul class="package-list">
+                    @foreach($airlines as $airline)
+                        <li>
+                            <div class="package-card">
+
+                                <figure class="card-banner">
+                                    <img height="100" src="{{ $airline->logo }}" alt="Experience The Great Holiday On Beach" loading="lazy">
+                                </figure>
+
+                                <div class="card-content">
+
+                                    <h3 class="h3 card-title">
+                                        {{ $airline->name }}
+                                    </h3>
+
+                                    <p class="card-text">
+                                        {{ $airline->description }}
+                                    </p>
+
+
+
+                                </div>
+
+                                <div class="card-price">
+
+                                    <div class="wrapper">
+
+                                    </div>
+
+
+                                    <a href="{{ route('flights-table', ['tableFilters[airline][values][0]' => $airline->id]) }}" class="btn btn-secondary" style="cursor: pointer;">استكشف رحلاتنا</a>
+
+                                </div>
+
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+
+            </div>
+        </section>
+
+
+
+
+
+        <!--
+          - #GALLERY
+        -->
+
+        <section class="gallery" id="gallery">
+            <div class="container">
+
+                <p class="section-subtitle">معرض الصور</p>
+
+                <h2 class="h2 section-title">صور من المسافرين</h2>
+
+                <p class="section-text">
+                    استمتع بمشاهد حية وتجارب ملهمة من مسافرينا عبر معرض الصور الخاص بنا. استعرض لقطات رائعة من مغامراتهم في ليبيا، وتعرف على الأماكن التي زاروها والأوقات التي قضوها. هل لديك صور خاصة من رحلتك معنا؟ شاركها معنا وأضف لمسة شخصية إلى مجتمع المسافرين لدينا.
+                </p>
+
+                <ul class="gallery-list">
+
+                    <li class="gallery-item">
+                        <figure class="gallery-image">
+                            <img src="{{ asset('img/gallery-1.jpg') }}" alt="Gallery image">
+                        </figure>
+                    </li>
+
+                    <li class="gallery-item">
+                        <figure class="gallery-image">
+                            <img src="{{ asset('img/gallery-3.jpg') }}" alt="Gallery image">
+                        </figure>
+                    </li>
+
+                    <li class="gallery-item">
+                        <figure class="gallery-image">
+                            <img src="{{ asset('img/gallery-2.jpg') }}" alt="Gallery image">
+                        </figure>
+                    </li>
+
+                    <li class="gallery-item">
+                        <figure class="gallery-image">
+                            <img src="{{ asset('img/gallery-4.jpg') }}" alt="Gallery image">
+                        </figure>
+                    </li>
+
+                    <li class="gallery-item">
+                        <figure class="gallery-image">
+                            <img src="{{ asset('img/gallery-5.jpg') }}" alt="Gallery image">
+                        </figure>
+                    </li>
+
+                </ul>
+
+            </div>
+        </section>
+
+
+
+
+        <!--
+          - #CTA
+        -->
+
+        <section class="cta" id="contact">
+            <div class="container">
+
+                <div class="cta-content">
+
+                    <h2 class="h2 section-title">جاهز لسفر لا ينسى!</h2>
+
+                    <p class="section-text">
+                        تقدم Tourly تجربة فريدة ومميزة لعشاق السفر والمغامرات. نسعى لجعل رحلتك إلى ليبيا سلسة وممتعة من خلال توفير أفضل عروض حجز تذاكر الطيران، الفنادق، والجولات السياحية. مع Tourly، يمكنك استكشاف أجمل المدن الليبية مثل طرابلس، بنغازي، صبراتة، وغيرها من الوجهات الساحرة.
+                    </p>
+                </div>
+
+                <button class="btn btn-secondary">تواصل معنا</button>
+
+            </div>
+        </section>
+
+    </article>
+</main>
+
+
+
+
+
+<!--
+  - #FOOTER
+-->
+
+<footer class="footer">
+
+    <div class="footer-top">
+        <div class="container">
+
+            <div class="footer-brand">
+
+                <a href="#" class="logo">
+                    <img src="{{ asset('img/logo.svg') }}" alt="Tourly logo">
+                </a>
+
+                <p class="footer-text">
+                    تقدم Tourly تجربة فريدة ومميزة لعشاق السفر والمغامرات. نسعى لجعل رحلتك إلى ليبيا سلسة وممتعة من خلال توفير أفضل عروض حجز تذاكر الطيران، الفنادق، والجولات السياحية. مع Tourly، يمكنك استكشاف أجمل المدن الليبية مثل طرابلس، بنغازي، صبراتة، وغيرها من الوجهات الساحرة.
+                </p>
+
+            </div>
+
+            <div class="footer-contact">
+
+                <h4 class="contact-title">تواصل معنا</h4>
+
+                <p class="contact-text">
+                    لا تتردد في الاتصال بنا والوصول إلينا!!
+                </p>
+
+                <ul>
+
+                    <li class="contact-item">
+                        <ion-icon name="call-outline"></ion-icon>
+
+                        <a href="tel:+01123456790" class="contact-link">+091 1234567</a>
+                    </li>
+
+                    <li class="contact-item">
+                        <ion-icon name="mail-outline"></ion-icon>
+
+                        <a href="mailto:info.tourly.com" class="contact-link">info.tourly.ly</a>
+                    </li>
+
+                    <li class="contact-item">
+                        <ion-icon name="location-outline"></ion-icon>
+
+                        <address>طرابلس - الدهماني</address>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="footer-form">
+
+                <p class="form-text">
+                    اشترك في النشرة الإخبارية لدينا لمزيد من التحديثات والأخبار !!
+                </p>
+
+                <form action="" class="form-wrapper">
+                    <input type="email" name="email" class="input-field" placeholder="اكتب البريد الإلكتروني" required>
+
+                    <button type="submit" class="btn btn-secondary">اشترك</button>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
 </footer>
 
-<!-- js file -->
-<script src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script>
-    // Scroll Top
-    $(document).ready(function () {
-        var ScrollTop = $(".scrollToTop");
-        $(window).on('scroll', function () {
-            if ($(this).scrollTop() < 500) {
-                ScrollTop.removeClass("active");
-            } else {
-                ScrollTop.addClass("active");
-            }
-        });
-        $('.scrollToTop').on('click', function () {
-            $('html, body').animate({
-                scrollTop: 0
-            }, 500);
-            return false;
-        });
-    });
-</script>
+
+
+
+
+<!--
+  - #GO TO TOP
+-->
+
+<a href="#top" class="go-top" data-go-top>
+    <ion-icon name="chevron-up-outline"></ion-icon>
+</a>
+
+
+
+
+
+<!--
+  - custom js link
+-->
+<script src="{{ asset('js/script.js') }}"></script>
+
+<!--
+  - ionicon link
+-->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+@filamentScripts
 </body>
 
 </html>

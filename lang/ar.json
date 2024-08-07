@@ -76,5 +76,7 @@
     "excess_baggage_fee": "رسوم الأمتعة الزائدة لكل 1 كجم",
     "Flight Status": "حالة الرحلة",
     "Economy Booked Seats": "المقاعد الاقتصادية المحجوزة",
-    "First Class Booked Seats": "المقاعد الدرجة الأولى المحجوزة"
+    "First Class Booked Seats": "المقاعد الدرجة الأولى المحجوزة",
+    "Allowed Baggage Weight Limit": "حد وزن الأمتعة المسموح به لكل شخص",
+    "Excess Baggage Fee Per 1 kgm": "رسوم الأمتعة الزائدة لكل 1 كجم"
 }

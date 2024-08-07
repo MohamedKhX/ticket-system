@@ -1,8 +1,15 @@
 <?php
 
+use App\Models\Airline;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'main');
+Route::get('/', function () {
+    $airlines = Airline::all();
+
+    return view('main', [
+        'airlines' => $airlines
+    ]);
+})->name('main');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -29,8 +36,11 @@ Route::get('/print', function () {
 });
 
 
-/*Route::get('/checkout/{booking:stripe_price_id}/{booking_id}',  [\App\Http\Controllers\PaymentController::class, 'checkout'])
-    ->name('checkout');
-Route::get('/sendEmail/{plan:id}', [\App\Http\Controllers\PaymentController::class, 'sendEmail'])->name('sendEmail');
-Route::get('/cancel',              [\App\Http\Controllers\PaymentController::class, 'cancel'])->name('cancel');
-*/
+
+Route::get('/checkout/{booking}',  [\App\Http\Controllers\PaymentController::class, 'checkout'])->name('checkout');
+
+Route::view('/payment/success', 'payment.success')->name('payment.success');
+
+Route::get('/payment/cancel', function () {
+    return 'تم الإلغاء';
+})->name('payment.cancel');

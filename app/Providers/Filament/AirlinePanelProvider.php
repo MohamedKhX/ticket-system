@@ -38,9 +38,10 @@ class AirlinePanelProvider extends PanelProvider
                 Reports::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Airline/Widgets'), for: 'App\\Filament\\Airline\\Widgets')
-            ->widgets([
-
-            ])
+            ->widgets([])
+            ->brandLogo(asset('img/logo.svg'))
+            ->favicon(asset('img/favicon.svg'))
+            ->brandLogoHeight('2.5rem')
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

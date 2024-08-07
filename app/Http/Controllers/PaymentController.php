@@ -2,17 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
+use App\Models\Flight;
 use Illuminate\Http\Request;
+use Stripe\Stripe;
 
 class PaymentController extends Controller
 {
-    public function checkout($stripePriceId, $bookingId)
+    public function checkout(Booking $booking)
     {
-        return auth()->user()->checkout([$stripePriceId => 1], [
-            'mode' => 'subscription',
-            'success_url' => \route('sendEmail', $bookingId),
-            'cancel_url'  => \route('cancel')
+        Stripe::setApiKey(config('stripe.sk'));
+        $session = \Stripe\Checkout\Session::create([
+           'line_items' => [
+               [
+                   'price_data' => [
+                       'currency' => 'usd',
+                       'product_data' => [
+                           'name' => 'حجز رحلة',
+                       ],
+                       'unit_amount' => round(($booking->total_price * 100) / 7),
+                   ],
+                   'quantity' => 1,
+               ],
+           ],
+            'mode' => 'payment',
+            'success_url' => route('payment.success'),
+            'cancel_url' => route('payment.cancel'),
         ]);
+        return redirect()->away($session->url);
     }
 
     public function sendEmail()
