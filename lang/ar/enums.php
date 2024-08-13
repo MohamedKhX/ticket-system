@@ -39,5 +39,10 @@ return [
         \App\Enums\FlightStatus::In_future->value    => 'في المستقبل',
         \App\Enums\FlightStatus::In_past->value      => 'في الماضي',
         \App\Enums\FlightStatus::In_present->value   => 'في الحاضر',
+    ],
+
+    'trip_destination' => [
+        \App\Enums\TripDestination::DomesticFlights->value => 'رحلات داخلية',
+        \App\Enums\TripDestination::ForeignTrips->value   => 'رحلات خارجية'
     ]
 ];

@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\Gender;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable;
 
@@ -53,6 +54,19 @@ class User extends Authenticatable
     public function Airline(): BelongsTo
     {
         return $this->belongsTo(Airline::class);
+    }
+
+    public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        if ($panel->getId() === 'admin') {
+            return is_null($this->airline);
+        }
+
+        if ($panel->getId() === 'airline') {
+            return ! is_null($this->airline);
+        }
+
+        return false;
     }
 
 }

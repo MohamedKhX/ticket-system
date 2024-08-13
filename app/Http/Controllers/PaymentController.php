@@ -32,9 +32,13 @@ class PaymentController extends Controller
         return redirect()->away($session->url);
     }
 
-    public function sendEmail()
+    public function success()
     {
+        $booking = Booking::latest()->get()->first();
 
+        \Illuminate\Support\Facades\Mail::to($booking->email)->send(new \App\Mail\ticket($booking));
+
+        return view('payment.success');
     }
 
     public function cancel()

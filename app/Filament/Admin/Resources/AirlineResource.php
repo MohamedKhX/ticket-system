@@ -12,12 +12,19 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
+/*
+هذه الصفحة خاصة بشركات الطيران
+لوحة التحكم: الادمن
+ * */
 class AirlineResource extends Resource
 {
     protected static ?string $model = Airline::class;
 
     protected static ?string $navigationIcon = 'entypo-aircraft';
 
+    /*
+     هذه الدالة تحدد الحقول التي ستظهر في صفحة الإنشاء أو تعديل
+     * */
     public static function form(Form $form): Form
     {
         return $form
@@ -55,6 +62,9 @@ class AirlineResource extends Resource
             ]);
     }
 
+    /*
+     هذه الدالة تحدد الحقول التي ستظهر في الجدول
+     * */
     public static function table(Table $table): Table
     {
         return $table
@@ -74,12 +84,31 @@ class AirlineResource extends Resource
             ]);
     }
 
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Airlines');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     public static function getRelations(): array
     {
         return [
             UsersRelationManager::class
         ];
     }
+
+
 
     public static function getPages(): array
     {
@@ -88,11 +117,6 @@ class AirlineResource extends Resource
             'create' => \App\Filament\Admin\Resources\AirlineResource\Pages\CreateAirline::route('/create'),
             'edit' => \App\Filament\Admin\Resources\AirlineResource\Pages\EditAirline::route('/{record}/edit'),
         ];
-    }
-
-    public static function getNavigationLabel(): string
-    {
-        return __('Airlines');
     }
 
     public static function getLabel(): ?string
@@ -104,4 +128,5 @@ class AirlineResource extends Resource
     {
         return __('Airlines');
     }
+
 }

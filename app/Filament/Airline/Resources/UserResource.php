@@ -16,12 +16,20 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+/*
+هذه الصفحة خاصة بالموظفين
+لوحة التحكم: شركة الطيران
+ * */
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
+
+    /*
+     هذه الدالة تحدد الحقول التي ستظهر في صفحة الإنشاء أو تعديل
+     * */
     public static function form(Form $form): Form
     {
         return $form
@@ -95,6 +103,10 @@ class UserResource extends Resource
             ]);
     }
 
+
+    /*
+       هذه الدالة تحدد الحقول التي ستظهر في الجدول
+       * */
     public static function table(Table $table): Table
     {
         return $table
@@ -128,6 +140,32 @@ class UserResource extends Resource
             ]);
     }
 
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Employees');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static function getPages(): array
     {
         return [
@@ -144,10 +182,6 @@ class UserResource extends Resource
         return $query->where('airline_id', '=', Filament::auth()->user()->airline_id);
     }
 
-    public static function getNavigationLabel(): string
-    {
-        return __('Employees');
-    }
 
     public static function getLabel(): ?string
     {

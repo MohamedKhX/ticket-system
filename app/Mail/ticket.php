@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Booking;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -13,12 +14,14 @@ class ticket extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public Booking $booking;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
-
+    public function __construct(Booking $booking)
     {
+        $this->booking = $booking;
     }
 
     /**
@@ -38,7 +41,7 @@ class ticket extends Mailable
     public function content(): Content
     {
         return new Content(
-            html: 'ticket'
+            markdown: 'mails.booking'
         );
     }
 

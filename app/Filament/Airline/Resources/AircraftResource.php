@@ -14,12 +14,20 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+
+/*
+هذه الصفحة خاصة بالطائرات
+لوحة التحكم: شركة الطيران
+ * */
 class AircraftResource extends Resource
 {
     protected static ?string $model = Aircraft::class;
 
     protected static ?string $navigationIcon = 'entypo-aircraft';
 
+    /*
+       هذه الدالة تحدد الحقول التي ستظهر في صفحة الإنشاء أو تعديل
+       * */
     public static function form(Form $form): Form
     {
         return $form
@@ -63,6 +71,10 @@ class AircraftResource extends Resource
             ]);
     }
 
+
+    /*
+      هذه الدالة تحدد الحقول التي ستظهر في الجدول
+      * */
     public static function table(Table $table): Table
     {
         return $table
@@ -90,6 +102,31 @@ class AircraftResource extends Resource
             ]);
     }
 
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Aircrafts');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery();
@@ -105,11 +142,6 @@ class AircraftResource extends Resource
             'create' => Pages\CreateAircraft::route('/create'),
             'edit' => Pages\EditAircraft::route('/{record}/edit'),
         ];
-    }
-
-    public static function getNavigationLabel(): string
-    {
-        return __('Aircrafts');
     }
 
     public static function getLabel(): ?string

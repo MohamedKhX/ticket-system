@@ -18,12 +18,19 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
+/*
+هذه الصفحة خاصة بالرحلات
+لوحة التحكم: شركة الطيران
+ * */
 class FlightResource extends Resource
 {
     protected static ?string $model = Flight::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-ticket';
 
+    /*
+       هذه الدالة تحدد الحقول التي ستظهر في صفحة الإنشاء أو تعديل
+       * */
     public static function form(Form $form): Form
     {
         return $form
@@ -210,6 +217,10 @@ class FlightResource extends Resource
             ]);
     }
 
+
+    /*
+      هذه الدالة تحدد الحقول التي ستظهر في الجدول
+      * */
     public static function table(Table $table): Table
     {
         return $table
@@ -288,6 +299,45 @@ class FlightResource extends Resource
             ]);
     }
 
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Flights');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery();
@@ -312,10 +362,7 @@ class FlightResource extends Resource
         ];
     }
 
-    public static function getNavigationLabel(): string
-    {
-        return __('Flights');
-    }
+
 
     public static function getLabel(): ?string
     {

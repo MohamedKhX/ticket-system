@@ -32,7 +32,7 @@ class AirportSeeder extends Seeder
         Airport::factory()->create([
             'name' => 'مطار بنينا الدولي',
             'city' => 'طرابلس',
-            'country' => 'بنغازي',
+            'country' => 'ليبيا',
         ]);
 
         //

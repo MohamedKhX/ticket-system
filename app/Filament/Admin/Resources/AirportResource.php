@@ -14,12 +14,19 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+/*
+هذه الصفحة خاصة بالمطارات
+لوحة التحكم: الادمن
+ * */
 class AirportResource extends Resource
 {
     protected static ?string $model = Airport::class;
 
     protected static ?string $navigationIcon = 'entypo-aircraft-landing';
 
+    /*
+     هذه الدالة تحدد الحقول التي ستظهر في صفحة الإنشاء أو تعديل
+     * */
     public static function form(Form $form): Form
     {
         return $form
@@ -50,6 +57,10 @@ class AirportResource extends Resource
             ]);
     }
 
+
+    /*
+     هذه الدالة تحدد الحقول التي ستظهر في الجدول
+     * */
     public static function table(Table $table): Table
     {
         return $table
@@ -81,19 +92,34 @@ class AirportResource extends Resource
             ]);
     }
 
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListAirports::route('/'),
-            'create' => Pages\CreateAirport::route('/create'),
-            'edit' => Pages\EditAirport::route('/{record}/edit'),
-        ];
-    }
 
     public static function getNavigationLabel(): string
     {
         return __('Airports');
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static function getLabel(): ?string
     {
@@ -103,5 +129,14 @@ class AirportResource extends Resource
     public static function getPluralLabel(): ?string
     {
         return __('Airports');
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListAirports::route('/'),
+            'create' => Pages\CreateAirport::route('/create'),
+            'edit' => Pages\EditAirport::route('/{record}/edit'),
+        ];
     }
 }

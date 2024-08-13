@@ -31,6 +31,7 @@ class BookingsChart extends ChartWidget
         $oct  = Booking::whereMonth('created_at', '=', '10')->count();
         $nov  = Booking::whereMonth('created_at', '=', '11')->count();
         $dec  = Booking::whereMonth('created_at', '=', '12')->count();
+
         return [
             'datasets' => [
                 [

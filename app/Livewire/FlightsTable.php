@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Enums\AgeGroup;
 use App\Enums\SeatType;
+use App\Enums\TripDestination;
 use App\Models\Booking;
 use App\Models\Flight;
 use App\Models\Passenger;
@@ -52,7 +53,7 @@ class FlightsTable extends Component implements HasForms, HasTable
 
     public function table(Table $table): Table
     {
-        return $table
+        return $table //where('departure_time', '>=', now())
             ->query(Flight::query())
             ->columns([
                 ImageColumn::make('airline.logo')
@@ -91,17 +92,17 @@ class FlightsTable extends Component implements HasForms, HasTable
                     ->translateLabel()
                     ->dateTime('Y-m-d H:i'),
 
-                TextColumn::make('economy_price')
+                TextColumn::make('economyPriceFormatted')
                     ->label('Economy Seat Price')
                     ->translateLabel()
-                    ->suffix(' د.ل')
-                    ->badge()
-                    ->color('success'),
 
-                TextColumn::make('first_class_price')
+                    ->badge()
+                    ->color('success')
+                    ->html(),
+
+                TextColumn::make('firstClassPriceFormatted')
                     ->label('First Class Seat Price')
                     ->translateLabel()
-                    ->suffix(' د.ل')
                     ->badge()
                     ->color('success'),
             ])
@@ -150,7 +151,30 @@ class FlightsTable extends Component implements HasForms, HasTable
                             ->whereDate('arrival_time', $data['arrival_time']);
                     })
                     ->columns(2)
-                    ->columnSpan(2)
+                    ->columnSpan(2),
+
+                Filter::make('trip_destination')
+                    ->form([
+                        Select::make('trip_destination')
+                            ->label('Trip Destination')
+                            ->translateLabel()
+                            ->options(TripDestination::getTranslations())
+                            ->columnSpan(2),
+
+                    ])
+                    ->query(function ($query, array $data) {
+                        $query->when($data['trip_destination'] == TripDestination::DomesticFlights->value)
+                            ->whereHas('departureAirport', function ($query) {
+                                $query->where('country', '=', 'ليبيا');
+                            });
+                        $query->when($data['trip_destination'] == TripDestination::ForeignTrips->value)
+                            ->whereHas('departureAirport', function ($query) {
+                                $query->where('country', '!=', 'ليبيا');
+                            });
+                    })
+                    ->columns(2)
+                    ->columnSpan(1),
+
             ], layout: FiltersLayout::AboveContent)
             ->filtersFormColumns(3)
             ->actions([
@@ -181,12 +205,22 @@ class FlightsTable extends Component implements HasForms, HasTable
                                                 ->content(fn(Flight $record) => $record->arrivalAirport->name),
 
                                             Placeholder::make('Departure Time')
-                                                ->label(__('Departure Time'))
+                                                ->label(__('Departure Time (One way)'))
                                                 ->content(fn(Flight $record) => $record->departure_time),
 
                                             Placeholder::make('Arrival Time')
-                                                ->label(__('Arrival Time'))
+                                                ->label(__('Arrival Time (One way)'))
                                                 ->content(fn(Flight $record) => $record->arrival_time),
+
+                                            Placeholder::make('Departure Time')
+                                                ->label(__('Departure Time (Round trip)'))
+                                                ->content(fn(Flight $record) => $record->return_departure_time)
+                                                ->hidden(fn($record) => ! $record->return_departure_time),
+
+                                            Placeholder::make('Arrival Time')
+                                                ->label(__('Arrival Time (Round trip)'))
+                                                ->content(fn(Flight $record) => $record->return_arrival_time)
+                                                ->hidden(fn($record) => ! $record->return_departure_time),
 
                                             Placeholder::make('Economy Seat Price')
                                                 ->label(__('Economy Seat Price'))
@@ -233,7 +267,8 @@ class FlightsTable extends Component implements HasForms, HasTable
                                                 ->columnSpan(2)
                                                 ->regex('/^[A-Za-z0-9]+$/u')
                                                 ->required()
-                                                ->minLength(9),
+                                                ->minLength(9)
+                                                ->maxLength(9),
                                         ])
                                         ->minItems(1)
                                         ->columns(2)
@@ -300,7 +335,6 @@ class FlightsTable extends Component implements HasForms, HasTable
                     ->color('danger')
                     ->modalSubmitAction(false)
                     ->action(function (Flight $record, array $data) {
-
                         $booking = Booking::create([
                             'flight_id' => $record->id,
                             'user_id' => 1,
@@ -321,7 +355,7 @@ class FlightsTable extends Component implements HasForms, HasTable
                             ]);
                         }
 
-                        \Illuminate\Support\Facades\Mail::to($data['email'])->send(new \App\Mail\ticket());
+                        $booking->generateTickets();
 
                         return redirect()->route('checkout', [
                             'booking' => $booking
@@ -336,10 +370,10 @@ class FlightsTable extends Component implements HasForms, HasTable
 
         foreach($passengers as $passenger) {
             if($passenger['seat_type'] == SeatType::Economy->value) {
-                $total_price += $record->economy_price;
+                $total_price += $record->economyPriceSeat;
             }
             if($passenger['seat_type'] == SeatType::First_class->value) {
-                $total_price += $record->first_class_price;
+                $total_price += $record->firstClassPriceSeat;
             }
         }
 
