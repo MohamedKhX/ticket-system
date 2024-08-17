@@ -7,5 +7,9 @@
     @foreach($booking->passengers as $passenger)
         - ({{$passenger->generateDownloadLinkForTicket()}}) - Mohamed Khalid
     @endforeach
+
+
+    يمكنك إلغاء الحجز من هنا
+    {{route('cancel-booking', $passenger->booking->id)}}
 </x-mail::message>
 

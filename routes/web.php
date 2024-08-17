@@ -41,18 +41,6 @@ Route::get('/search', function () {
     return view('flights-table');
 })->name('flights-table');
 
-Route::get('/send', function() {
-    \Illuminate\Support\Facades\Mail::to('muhamedkhx2@gmail.com')->send(new \App\Mail\ticket());
-});
-
-Route::get('/print', function () {
-    $model = new \App\Models\Flight();
-
-    return view('reports.print', compact('model'));
-});
-
-
-
 Route::get('/checkout/{booking}',  [\App\Http\Controllers\PaymentController::class, 'checkout'])->name('checkout');
 
 Route::get('/payment/success',  [\App\Http\Controllers\PaymentController::class, 'success'])->name('payment.success');
@@ -61,22 +49,13 @@ Route::get('/payment/cancel', function () {
     return 'تم الإلغاء';
 })->name('payment.cancel');
 
+Route::get('/cancel-booking/{booking:id}', function (\App\Models\Booking $booking) {
+    return view('cancel-booking', ['booking' => $booking]);
+})->name('cancel-booking');
 
-Route::get('/ticket', function () {
+Route::get('/delete-booking/{booking:id}', function (\App\Models\Booking $booking) {
+    $booking->deleteOrFail();
+    return redirect(route('booking.canceled'));
+})->name('delete-booking');
 
-    return view('ticket', [
-        'passenger' => \App\Models\Passenger::find(1)
-    ]);
-
-    $pdf = Pdf::loadView('ticket', [
-        'passenger' => Passenger::find(1)
-    ]);
-
-    Storage::put('public/pdf/invoice.pdf', $pdf->output());
-    $path = Storage::path('public/pdf/invoice.pdf');
-
-    return response()->download($path);
-});
-
-
-
+Route::view('booking/canceled', 'delete-booking')->name('booking.canceled');

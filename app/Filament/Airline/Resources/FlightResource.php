@@ -91,6 +91,7 @@ class FlightResource extends Resource
                                     ->translateLabel()
                                     ->prefixIcon('entypo-clock')
                                     ->required()
+                                    ->after(now())
                                     ->native(false),
 
                                 Forms\Components\DateTimePicker::make('arrival_time')
@@ -98,6 +99,7 @@ class FlightResource extends Resource
                                     ->translateLabel()
                                     ->prefixIcon('entypo-clock')
                                     ->required()
+                                    ->after('departure_time')
                                     ->native(false),
 
                                 Forms\Components\DateTimePicker::make('return_departure_time')

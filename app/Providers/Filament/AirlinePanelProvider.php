@@ -39,7 +39,7 @@ class AirlinePanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Airline/Widgets'), for: 'App\\Filament\\Airline\\Widgets')
             ->widgets([])
-            ->brandLogo(asset('img/logo.svg'))
+            ->brandLogo(asset('img/logo-blue.svg'))
             ->favicon(asset('img/favicon.svg'))
             ->brandLogoHeight('2.5rem')
             ->middleware([

@@ -43,7 +43,7 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Reports::class,
             ])
-            ->brandLogo(asset('img/logo.svg'))
+            ->brandLogo(asset('img/logo-blue.svg'))
             ->favicon(asset('img/favicon.svg'))
             ->brandLogoHeight('2.5rem')
             ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\\Filament\\Admin\\Widgets')

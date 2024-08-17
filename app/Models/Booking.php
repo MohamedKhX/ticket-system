@@ -52,4 +52,18 @@ class Booking extends Model
             Storage::put($passengerPath, $pdf->output());
         }
     }
+
+    public function cancel()
+    {
+
+    }
+
+    public function calcCancelPrice()
+    {
+        if($this->created_at->addDays($this->flight->the_period_allowed_for_cancellation_without_paying_a_fee) < now()) {
+            return  $this->total_price * ($this->flight->percentage_of_cash_back_after_the_grace_period / 100);
+        }
+
+        return $this->total_price;
+    }
 }
