@@ -246,10 +246,12 @@ class FlightsTable extends Component implements HasForms, HasTable
                                         ->schema([
                                             TextInput::make('first_name')
                                                 ->label(__('first_name'))
+                                                ->regex('/^[a-zA-Z]+$/u')
                                                 ->required(),
 
                                             TextInput::make('last_name')
                                                 ->label(__('last_name'))
+                                                ->regex('/^[a-zA-Z]+$/u')
                                                 ->required(),
 
                                             Select::make('age_group')
@@ -304,6 +306,7 @@ class FlightsTable extends Component implements HasForms, HasTable
                                 ->schema([
                                     TextInput::make('email')
                                         ->label(__('Email'))
+                                        ->regex('/^[a-zA-Z]+$/u')
                                         ->required()
                                         ->email(),
 
@@ -312,6 +315,7 @@ class FlightsTable extends Component implements HasForms, HasTable
                                         ->required()
                                         ->tel()
                                         ->numeric()
+
                                         ->maxLength(255)
                                 ]),
                             Wizard\Step::make('الدفع')

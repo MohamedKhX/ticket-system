@@ -2,6 +2,8 @@
 
 namespace App\Filament\Airline\Resources\FlightResource\RelationManagers;
 
+use App\Enums\BookingStatus;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\RepeatableEntry;
@@ -117,6 +119,14 @@ class BookingsRelationManager extends RelationManager
                     ->columns(2)
                     ->columnSpan(2)
             ]);
+    }
+
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        return $query->where('status', '=', BookingStatus::Booked_up->value);
     }
 
     public function isReadOnly(): bool

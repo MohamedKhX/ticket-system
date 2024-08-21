@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\BookingStatus;
 use App\Models\Booking;
 use App\Models\Flight;
 use Illuminate\Http\Request;
@@ -11,6 +12,9 @@ class PaymentController extends Controller
 {
     public function checkout(Booking $booking)
     {
+        $booking->status = BookingStatus::Booked_up->value;
+        $booking->save();
+
         Stripe::setApiKey(config('stripe.sk'));
         $session = \Stripe\Checkout\Session::create([
            'line_items' => [
