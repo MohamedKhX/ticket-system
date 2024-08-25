@@ -57,7 +57,12 @@ class AirlineResource extends Resource
                                 'strike',
                                 'underline',
                                 'undo',
-                            ])
+                            ]),
+
+                        Forms\Components\TextInput::make('logo')
+                            ->label('logo')
+                            ->translateLabel(),
+
                     ])->columns(1),
             ]);
     }

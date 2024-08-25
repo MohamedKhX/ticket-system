@@ -54,7 +54,7 @@ class FlightsTable extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table //where('departure_time', '>=', now())
-            ->query(Flight::query())
+            ->query(Flight::where('departure_time', '>=', now()))
             ->columns([
                 ImageColumn::make('airline.logo')
                     ->circular()
@@ -95,7 +95,6 @@ class FlightsTable extends Component implements HasForms, HasTable
                 TextColumn::make('economyPriceFormatted')
                     ->label('Economy Seat Price')
                     ->translateLabel()
-
                     ->badge()
                     ->color('success')
                     ->html(),
@@ -104,7 +103,8 @@ class FlightsTable extends Component implements HasForms, HasTable
                     ->label('First Class Seat Price')
                     ->translateLabel()
                     ->badge()
-                    ->color('success'),
+                    ->color('success')
+                    ->html(),
             ])
             ->filters([
                 SelectFilter::make('airline')

@@ -6,6 +6,7 @@ use App\Enums\FlightType;
 use App\Filament\Airline\Resources\FlightResource\Pages;
 use App\Filament\Airline\Resources\FlightResource\RelationManagers;
 use App\Models\Aircraft;
+use App\Models\Airline;
 use App\Models\Airport;
 use App\Models\Flight;
 use Filament\Facades\Filament;
@@ -54,7 +55,7 @@ class FlightResource extends Resource
                             ->translateLabel()
                             ->prefixIcon('entypo-aircraft')
                             ->relationship('aircraft')
-                            ->options(Aircraft::all()->pluck('name', 'id')->toArray())
+                            ->options(Airline::find(Filament::auth()->user()->airline_id)->aircrafts()->pluck('name', 'id')->toArray())
                             ->searchable()
                             ->preload()
                             ->required()
