@@ -6,6 +6,7 @@ use App\Enums\Gender;
 use App\Enums\UserType;
 use App\Models\Airline;
 use App\Models\Flight;
+use App\Models\User;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -62,6 +63,10 @@ class UsersRelationManager extends RelationManager
                     ->options(Gender::getTranslations())
                     ->required(),
 
+                Forms\Components\Hidden::make('roles')
+                    ->default('admin'),
+
+
                 Forms\Components\Hidden::make('type')
                     ->default(UserType::Employee->value),
 
@@ -92,18 +97,26 @@ class UsersRelationManager extends RelationManager
             ]);
     }
 
+
+
     public function table(Table $table): Table
     {
         return $table
             ->recordTitleAttribute('email')
             ->columns([
-                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('email')
+                    ->label('Email')
+                    ->translateLabel(),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->after(function () {
+                        $user = User::orderBy('created_at', 'desc')->first();
+                        $user->assignRole('admin');
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -123,17 +136,17 @@ class UsersRelationManager extends RelationManager
 
     public static function getTitle(\Illuminate\Database\Eloquent\Model $ownerRecord, string $pageClass): string
     {
-        return __('Employees');
+        return __('Supervisors');
     }
 
     public static function getRecordLabel(): string
     {
-        return __('Employee');
+        return __('Supervisor');
     }
 
     public static function getModelLabel(): ?string
     {
-        return __('Employee');
+        return __('Supervisors');
     }
 
     public static function getPluralModelLabel(): ?string

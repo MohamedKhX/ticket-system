@@ -9,12 +9,14 @@ use App\Filament\Airline\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Facades\Filament;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Spatie\Permission\Models\Role;
 
 /*
 هذه الصفحة خاصة بالموظفين
@@ -75,6 +77,14 @@ class UserResource extends Resource
 
                 Forms\Components\Hidden::make('type')
                     ->default(UserType::Employee->value),
+
+                Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->label(__('Roles'))
+                    ->options(Role::all()->mapWithKeys(function ($item) {
+                        return [$item['id'] => __($item['name'])];
+                    })->toArray())
+                    ->multiple(),
 
                 Forms\Components\Hidden::make('airline_id')
                     ->default(Filament::auth()->user()->airline_id),

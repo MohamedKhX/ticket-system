@@ -7,6 +7,7 @@ use App\Models\Airport;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,6 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Artisan::call('permission:seed');
+
         $this->call([
             AirportSeeder::class,
             AirlineSeeder::class,
@@ -22,40 +25,51 @@ class DatabaseSeeder extends Seeder
             FlightSeeder::class,
         ]);
 
-        User::factory()->create([
+        $adminUser = User::factory()->create([
             'email' => 'admin@admin.com',
             'password' => bcrypt('password'),
-
         ]);
 
-        User::factory()->create([
+        $adminUser->assignRole('admin');
+
+        $user1 = User::factory()->create([
             'email' => 'libyanairlines@aero.ly',
             'password' => bcrypt('password'),
             'airline_id' => 1
         ]);
 
-        User::factory()->create([
+        $user1->assignRole('admin');
+
+        $user2 = User::factory()->create([
             'email' => 'afriqiyah@aero.ly',
             'password' => bcrypt('password'),
             'airline_id' => 2
         ]);
 
-        User::factory()->create([
+        $user2->assignRole('admin');
+
+        $user3 = User::factory()->create([
             'email' => 'berniq@aero.ly',
             'password' => bcrypt('password'),
             'airline_id' => 3
         ]);
 
-        User::factory()->create([
+        $user3->assignRole('admin');
+
+        $user4 = User::factory()->create([
             'email' => 'Ghadames@aero.ly',
             'password' => bcrypt('password'),
             'airline_id' => 4
         ]);
 
-        User::factory()->create([
+        $user4->assignRole('admin');
+
+        $user5 = User::factory()->create([
             'email' => 'AirKufra@aero.ly',
             'password' => bcrypt('password'),
             'airline_id' => 5
         ]);
+
+        $user5->assignRole('admin');
     }
 }
