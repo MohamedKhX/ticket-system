@@ -306,7 +306,6 @@ class FlightsTable extends Component implements HasForms, HasTable
                                 ->schema([
                                     TextInput::make('email')
                                         ->label(__('Email'))
-                                        ->regex('/^[a-zA-Z]+$/u')
                                         ->required()
                                         ->email(),
 
@@ -315,7 +314,6 @@ class FlightsTable extends Component implements HasForms, HasTable
                                         ->required()
                                         ->tel()
                                         ->numeric()
-
                                         ->maxLength(255)
                                 ]),
                             Wizard\Step::make('الدفع')
