@@ -8,5 +8,5 @@ class Reports extends Dashboard
 {
     protected static ?string $navigationIcon = 'heroicon-o-presentation-chart-bar';
 
-    protected static ?string $navigationLabel = 'التقارير';
+    protected static ?string $navigationLabel = 'الإحصائيات';
 }

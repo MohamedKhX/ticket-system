@@ -82,5 +82,10 @@
     "Trip Destination": "وجهة الرحلات",
     "logo": "الشعار",
     "Supervisors": "مسؤولون",
-    "Supervisor": "مسؤول"
+    "Supervisor": "مسؤول",
+    "filament-reports::reports.filters": "الفلاتر",
+    "filament-reports::reports.print": "طباعة",
+    "filament-reports::reports.filter-button-label": "فلترة",
+    "filament-reports::menu-page.nav.group": "التقارير"
+
 }

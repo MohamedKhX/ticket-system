@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Airline\Reports;
+use EightyNine\Reports\ReportsPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -39,6 +40,9 @@ class AirlinePanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Airline/Pages'), for: 'App\\Filament\\Airline\\Pages')
             ->pages([
                 Reports::class,
+            ])
+            ->plugins([
+                ReportsPlugin::make()
             ])
             ->discoverWidgets(in: app_path('Filament/Airline/Widgets'), for: 'App\\Filament\\Airline\\Widgets')
             ->widgets([])

@@ -8,6 +8,7 @@ use App\Filament\Admin\Widgets\BookingsChart;
 use App\Filament\Admin\Widgets\FlightsChart;
 use App\Filament\Admin\Widgets\FlightsTable;
 use App\Filament\Admin\Widgets\StatsOverviewWidget;
+use EightyNine\Reports\ReportsPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -38,7 +39,9 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::hex('#40E0D0'),
             ])
-
+            ->plugins([
+                ReportsPlugin::make()
+            ])
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\\Filament\\Admin\\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\\Filament\\Admin\\Pages')
             ->pages([

@@ -8,6 +8,7 @@ use App\Filament\Resources\Shop\OrderResource;
 use App\Models\Aircraft;
 use App\Models\Flight;
 use App\Models\Shop\Order;
+use ArielMejiaDev\FilamentPrintable\Actions\PrintAction;
 use Filament\Tables;
 use Filament\Tables\Filters\QueryBuilder;
 use Filament\Tables\Filters\QueryBuilder\Constraints\BooleanConstraint;
@@ -190,8 +191,6 @@ class FlightsTable extends BaseWidget
                             ->translateLabel(),
                     ])
             ], layout: Tables\Enums\FiltersLayout::AboveContent)
-            ->actions([
-
-            ]);
+            ->actions([]);
     }
 }
