@@ -33,9 +33,6 @@ class AirlinePanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::hex('#A91D3A'),
             ])
-            ->plugins([
-                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
-            ])
             ->discoverResources(in: app_path('Filament/Airline/Resources'), for: 'App\\Filament\\Airline\\Resources')
             ->discoverPages(in: app_path('Filament/Airline/Pages'), for: 'App\\Filament\\Airline\\Pages')
             ->pages([

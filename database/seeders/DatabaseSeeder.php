@@ -16,8 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Artisan::call('permission:seed');
-
         $this->call([
             AirportSeeder::class,
             AirlineSeeder::class,
@@ -30,15 +28,13 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        $adminUser->assignRole('admin');
-
         $user1 = User::factory()->create([
             'email' => 'libyanairlines@aero.ly',
             'password' => bcrypt('password'),
             'airline_id' => 1
         ]);
 
-        $user1->assignRole('admin');
+
 
         $user2 = User::factory()->create([
             'email' => 'afriqiyah@aero.ly',
@@ -46,7 +42,7 @@ class DatabaseSeeder extends Seeder
             'airline_id' => 2
         ]);
 
-        $user2->assignRole('admin');
+
 
         $user3 = User::factory()->create([
             'email' => 'berniq@aero.ly',
@@ -54,7 +50,7 @@ class DatabaseSeeder extends Seeder
             'airline_id' => 3
         ]);
 
-        $user3->assignRole('admin');
+
 
         $user4 = User::factory()->create([
             'email' => 'Ghadames@aero.ly',
@@ -62,7 +58,7 @@ class DatabaseSeeder extends Seeder
             'airline_id' => 4
         ]);
 
-        $user4->assignRole('admin');
+
 
         $user5 = User::factory()->create([
             'email' => 'AirKufra@aero.ly',
@@ -70,6 +66,6 @@ class DatabaseSeeder extends Seeder
             'airline_id' => 5
         ]);
 
-        $user5->assignRole('admin');
+
     }
 }

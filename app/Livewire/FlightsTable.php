@@ -339,7 +339,6 @@ class FlightsTable extends Component implements HasForms, HasTable
                     ->action(function (Flight $record, array $data) {
                         $booking = Booking::create([
                             'flight_id' => $record->id,
-                            'user_id' => 1,
                             'passenger_count' => count($data['passengers']),
                             'total_price' => $this->getTotalPrice($data['passengers'], $record),
                             'email' => $data['email'],

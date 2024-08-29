@@ -7,7 +7,6 @@
     "require": {
         "php": "^8.2",
         "barryvdh/laravel-dompdf": "^3.0",
-        "bezhansalleh/filament-shield": "^3.2",
         "eightynine/filament-reports": "^3.0",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
@@ -18,7 +17,6 @@
         "livewire/volt": "^1.0",
         "malzariey/filament-daterangepicker-filter": "^3.0",
         "owenvoke/blade-entypo": "^2.2",
-        "spatie/laravel-permission": "^6.9",
         "stripe/stripe-php": "^15.3"
     },
     "require-dev": {
