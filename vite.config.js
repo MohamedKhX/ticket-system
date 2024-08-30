@@ -9,6 +9,10 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/css/filament/airline/theme.css'
             ],
+            content: [
+                './resources/views/main.blade.php',
+                './resources/views/livewire/flights-table.blade.php',
+            ],
             refresh: true,
         }),
     ],

@@ -332,7 +332,9 @@ class FlightsTable extends Component implements HasForms, HasTable
 
 
                                 ]),
-                        ])->submitAction(new HtmlString('<button type="submit" style="background-color: #0a58ca; color: white; padding: 10px 20px; border-radius: 10px">تأكيد</button>'))
+                        ])
+
+                            ->submitAction(new HtmlString('<button type="submit" style="background-color: #0a58ca; color: white; padding: 10px 20px; border-radius: 10px">تأكيد</button>'))
                     ])
                     ->color('danger')
                     ->modalSubmitAction(false)
