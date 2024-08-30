@@ -43,15 +43,22 @@ class FlightsReport extends Report
                     ->schema([
                         Body\Table::make()
                             ->columns([
+                                Body\TextColumn::make("id")
+                                    ->label("")
+                                    ->translateLabel()
+                                    ->hidden(true),
+
                                 Body\TextColumn::make("aircraft_id")
                                     ->label("Aircraft")
                                     ->translateLabel()
-                                    ->formatStateUsing(fn($state) => Aircraft::find($state)->name),
+                                    ->formatStateUsing(fn($state) => Aircraft::find($state)->name)
+                                    ->url(fn($record) => 'flight-report?flight_id=' . $record['id']),
 
                                 Body\TextColumn::make("flight_type")
                                     ->label("Flight Type")
                                     ->translateLabel()
                                     ->formatStateUsing(fn($state) => FlightType::tryFrom($state)->translate()),
+
 
                                 Body\TextColumn::make("departure_airport_id")
                                     ->label("Departure Airport")
@@ -119,7 +126,7 @@ class FlightsReport extends Report
                                         ->when($arrivalTime, function ($query, $arrivalTime) {
                                             return $query->whereDate('arrival_time', '=', $arrivalTime);
                                         })
-                                        ->select("aircraft_id", 'flight_type', 'departure_airport_id', 'arrival_airport_id', 'departure_time', 'arrival_time', 'economy_price', 'first_class_price')
+                                        ->select('id', "aircraft_id", 'flight_type', 'departure_airport_id', 'arrival_airport_id', 'departure_time', 'arrival_time', 'economy_price', 'first_class_price')
                                         ->take(10)
                                         ->get();
                                 }

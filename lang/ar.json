@@ -86,6 +86,9 @@
     "filament-reports::reports.filters": "الفلاتر",
     "filament-reports::reports.print": "طباعة",
     "filament-reports::reports.filter-button-label": "فلترة",
-    "filament-reports::menu-page.nav.group": "التقارير"
+    "filament-reports::menu-page.nav.group": "التقارير",
+    "Customer Services": "خدمة العملاء",
+    "Message": "الرسالة",
+    "Customer Name": "اسم العميل"
 
 }

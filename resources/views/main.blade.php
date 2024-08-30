@@ -207,7 +207,7 @@
                     </li>
 
                     <li>
-                        <a href="#contact" class="navbar-link" data-nav-link>تواصل معنا</a>
+                        <a href="{{ route('customer') }}" class="navbar-link" data-nav-link>خدمة العملاء</a>
                     </li>
 
                 </ul>

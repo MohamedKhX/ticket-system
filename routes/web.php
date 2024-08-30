@@ -18,6 +18,10 @@ Route::get('/', function () {
     ]);
 })->name('main');
 
+Route::get('/customer', function () {
+    return view('customer');
+})->name('customer');
+
 
 Route::get('/download-ticket/{passenger:id}', function (Passenger $passenger) {
     $bookingPath = 'public/bookings/' . $passenger->booking->id . '/';
