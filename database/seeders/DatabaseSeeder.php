@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\UserType;
 use App\Models\Aircraft;
 use App\Models\Airport;
 use App\Models\User;
@@ -26,12 +27,14 @@ class DatabaseSeeder extends Seeder
         $adminUser = User::factory()->create([
             'email' => 'admin@admin.com',
             'password' => bcrypt('password'),
+            'type' => UserType::Admin->value
         ]);
 
         $user1 = User::factory()->create([
             'email' => 'libyanairlines@aero.ly',
             'password' => bcrypt('password'),
-            'airline_id' => 1
+            'airline_id' => 1,
+            'type' => UserType::Employee->value
         ]);
 
 
@@ -39,7 +42,8 @@ class DatabaseSeeder extends Seeder
         $user2 = User::factory()->create([
             'email' => 'afriqiyah@aero.ly',
             'password' => bcrypt('password'),
-            'airline_id' => 2
+            'airline_id' => 2,
+            'type' => UserType::Employee->value
         ]);
 
 
@@ -47,7 +51,8 @@ class DatabaseSeeder extends Seeder
         $user3 = User::factory()->create([
             'email' => 'berniq@aero.ly',
             'password' => bcrypt('password'),
-            'airline_id' => 3
+            'airline_id' => 3,
+            'type' => UserType::Employee->value
         ]);
 
 
@@ -55,7 +60,8 @@ class DatabaseSeeder extends Seeder
         $user4 = User::factory()->create([
             'email' => 'Ghadames@aero.ly',
             'password' => bcrypt('password'),
-            'airline_id' => 4
+            'airline_id' => 4,
+            'type' => UserType::Employee->value
         ]);
 
 
@@ -63,9 +69,9 @@ class DatabaseSeeder extends Seeder
         $user5 = User::factory()->create([
             'email' => 'AirKufra@aero.ly',
             'password' => bcrypt('password'),
-            'airline_id' => 5
+            'airline_id' => 5,
+            'type' => UserType::Employee->value
         ]);
-
 
     }
 }

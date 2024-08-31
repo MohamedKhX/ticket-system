@@ -8,5 +8,4 @@ enum UserType: string
 
     case Admin    = 'admin';
     case Employee = 'employee';
-    case Customer = 'customer';
 }
