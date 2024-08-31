@@ -1,12 +1,12 @@
 <?php
 
+use App\Enums\UserType;
+use App\Http\Controllers\ProfileController;
 use App\Models\Airline;
 use App\Models\Airport;
-use App\Models\Passenger;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+
 
 Route::get('/', function () {
     $airlines = Airline::all();
@@ -17,10 +17,6 @@ Route::get('/', function () {
         'airports' => $airports
     ]);
 })->name('main');
-
-Route::get('/customer', function () {
-    return view('customer');
-})->name('customer');
 
 
 Route::get('/download-ticket/{passenger:id}', function (Passenger $passenger) {
@@ -63,3 +59,23 @@ Route::get('/delete-booking/{booking:id}', function (\App\Models\Booking $bookin
 })->name('delete-booking');
 
 Route::view('booking/canceled', 'delete-booking')->name('booking.canceled');
+Route::get('/customer', function () {
+    return view('customer');
+})->name('customer');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
+require __DIR__.'/auth.php';
+
+
+Route::get('dashboard', function () {
+    if(\auth()->user()->type === UserType::Admin->value) {
+        return redirect('/admin');
+    }
+
+    return redirect('/airline');
+});

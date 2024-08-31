@@ -89,6 +89,8 @@
     "filament-reports::menu-page.nav.group": "التقارير",
     "Customer Services": "خدمة العملاء",
     "Message": "الرسالة",
-    "Customer Name": "اسم العميل"
+    "Customer Name": "اسم العميل",
+    "Remember me": "تذكرني",
+    "Log in": "تسجيل دخول"
 
 }

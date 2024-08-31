@@ -29,7 +29,6 @@ class AirlinePanelProvider extends PanelProvider
         return $panel
             ->id('airline')
             ->path('airline')
-            ->login()
             ->colors([
                 'primary' => Color::hex('#A91D3A'),
             ])

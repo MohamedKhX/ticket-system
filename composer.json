@@ -10,7 +10,7 @@
         "eightynine/filament-reports": "^3.0",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
-        "laravel/breeze": "^2.0",
+        "laravel/breeze": "^2.1",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",

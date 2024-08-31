@@ -11,7 +11,6 @@ export default defineConfig({
             ],
             content: [
                 './resources/views/main.blade.php',
-                './resources/views/livewire/flights-table.blade.php',
             ],
             refresh: true,
         }),
