@@ -4,6 +4,7 @@ use App\Enums\UserType;
 use App\Http\Controllers\ProfileController;
 use App\Models\Airline;
 use App\Models\Airport;
+use App\Models\Passenger;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
